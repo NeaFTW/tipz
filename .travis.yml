@@ -1,10 +1,11 @@
 language: scala
-env:
-  - ENV=test
+
 jdk:
-  - openjdk7
-  - oraclejdk7
+  - openjdk8
+  - oraclejdk8
+
 scala:
   - 2.11.8
+
 script:
   - sbt test
