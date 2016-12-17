@@ -1,5 +1,4 @@
 import org.scalatra.sbt._
-import org.scalatra.sbt.PluginKeys._
 import com.mojolly.scalate.ScalatePlugin._
 import ScalateKeys._
 
@@ -43,3 +42,4 @@ scalateTemplateConfig in Compile := {
 }
 
 enablePlugins(JettyPlugin)
+containerPort in Jetty := 80
