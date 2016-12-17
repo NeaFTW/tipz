@@ -3,7 +3,7 @@ import org.scalatra.sbt.PluginKeys._
 import com.mojolly.scalate.ScalatePlugin._
 import ScalateKeys._
 
-val ScalatraVersion = "2.5.0"
+val ScalatraVersion = "2.3.0"
 
 ScalatraPlugin.scalatraSettings
 
