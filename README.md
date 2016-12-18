@@ -1,5 +1,7 @@
 # Tipz #
 
+#Travis [![Build Status](https://travis-ci.com/NeaFTW/tipz.svg?token=rmCpxryC3znpRh9uHNKP&branch=master)](https://travis-ci.com/NeaFTW/tipz)
+
 ## Build & Run ##
 
 ```sh
