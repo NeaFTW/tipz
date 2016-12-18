@@ -1,0 +1,26 @@
+FROM java:8
+
+WORKDIR /home/docker
+
+ENV CONSCRIPT_HOME /home/tipz/.conscript
+ENV CONSCRIPT_BIN $CONSCRIPT_HOME/bin
+ENV PATH $PATH:$CONSCRIPT_BIN
+
+RUN apt-get update -y
+RUN apt-get install -y wget git
+
+# Install conscript
+# conscript setup stupidly exits with error code 1 even after success :facepalm:
+# replace the last line with a version that exits truthfully
+RUN curl https://raw.githubusercontent.com/foundweekends/conscript/master/setup.sh | head -n -1 | sed '$ a cs || true' | sh
+
+# Install giter8
+RUN cs foundweekends/giter8
+
+RUN wget http://apache.mindstudios.com/tomcat/tomcat-8/v8.5.9/bin/apache-tomcat-8.5.9.tar.gz -P /home/docker
+
+RUN mv /home/docker/apache-tomcat-8.5.9.tar.gz /home/docker/tomcat.tar.gz
+
+RUN tar -xvzf tomcat.tar.gz -C /home/docker
+
+EXPOSE 80 8080 3306

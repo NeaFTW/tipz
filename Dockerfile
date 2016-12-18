@@ -1,9 +1,18 @@
-FROM java:7
+FROM neaftw/nea-scalatra:1.0
 
-RUN apt-get install -y software-properties-common
-RUN add-apt-repository ppa:webupd8team/java && apt-get update
+WORKDIR /home/docker
 
-RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | debconf-set-selections
-RUN echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 seen true" | debconf-set-selections
+COPY src/ /home/docker/tipz/src
+COPY project/build.properties /home/docker/tipz/project/
+COPY project/plugins.sbt /home/docker/tipz/project/
+COPY .lib/ /home/docker/tipz/.lib/
+COPY build.sbt /home/docker/tipz/
+COPY sbt /home/docker/tipz/
 
-RUN apt-get install -y oracle-java8-installer
+RUN cd /home/docker/tipz && ./sbt package
+RUN mv /home/docker/tipz/target/scala-2.11/tipz_2.11-0.1.0-SNAPSHOT.war /home/docker/apache-tomcat-8.5.9/webapps
+RUN cp /home/docker/apache-tomcat-8.5.9/webapps/tipz_2.11-0.1.0-SNAPSHOT.war /home/docker/apache-tomcat-8.5.9/webapps/tipz.war
+
+ENTRYPOINT ["/home/docker/apache-tomcat-8.5.9/bin/catalina.sh", "run"]
+
+EXPOSE 80 8080 3306
