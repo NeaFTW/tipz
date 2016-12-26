@@ -1,6 +1,6 @@
 package com.tipz.app.pageViews
 
-import controllers.{SessionController}
+import controllers.SessionController
 import org.scalatra.test.specs2.ScalatraSpec
 
 /**
