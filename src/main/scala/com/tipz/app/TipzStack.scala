@@ -1,4 +1,4 @@
-package com.example.app
+package com.tipz.app
 
 import org.scalatra._
 import scalate.ScalateSupport
