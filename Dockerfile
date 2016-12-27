@@ -5,7 +5,6 @@ WORKDIR /home/docker
 COPY src/ /home/docker/tipz/src
 COPY project/build.properties /home/docker/tipz/project/
 COPY project/plugins.sbt /home/docker/tipz/project/
-COPY .lib/ /home/docker/tipz/.lib/
 COPY build.sbt /home/docker/tipz/
 COPY sbt /home/docker/tipz/
 
