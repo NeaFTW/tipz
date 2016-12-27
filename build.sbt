@@ -24,7 +24,10 @@ libraryDependencies ++= Seq(
   "org.scalatra" %% "scalatra-specs2" % ScalatraVersion % "test",
   "ch.qos.logback" % "logback-classic" % "1.1.5" % "runtime",
   "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container;compile",
-  "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided"
+  "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
+  "org.mongodb" %% "casbah" % "2.7.2",
+  "org.json4s" %% "json4s-jackson" % "3.2.10",
+  "org.json4s" %% "json4s-mongo" % "3.2.10"
 )
 
 scalateTemplateConfig in Compile := {

@@ -5,11 +5,10 @@ import org.scalatra._
 class MyScalatraServlet extends TipzStack {
 
   get("/") {
-    <html>
-      <body>
-        <h1>Index</h1>
-      </body>
-    </html>
+    contentType="text/html"
+
+    layoutTemplate("/WEB-INF/views/hello-scalate.jade",
+      "test" -> "Heignwiehg reignreouig rgirngiu eruig")
   }
 
   get("/best") {
