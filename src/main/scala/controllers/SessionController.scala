@@ -8,28 +8,24 @@ import org.scalatra._
   */
 class SessionController extends TipzStack {
   get("/signin") {
-    <html>
-      <body>
-        <h1>Signin</h1>
-      </body>
-    </html>
+    contentType="text/html"
+
+    layoutTemplate("/WEB-INF/views/signin.jade",
+      "user" -> ""
+    )
   }
 
 
   get("/signup") {
-    <html>
-      <body>
-        <h1>Signup</h1>
-      </body>
-    </html>
+    contentType="text/html"
+
+    layoutTemplate("/WEB-INF/views/signup.jade",
+      "user" -> ""
+    )
   }
 
   get("/logout") {
-    <html>
-      <body>
-        <h1>Signout</h1>
-      </body>
-    </html>
+
   }
 
   post("/signin") {

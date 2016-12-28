@@ -1,0 +1,42 @@
+- attributes("title") = "Tipz - S'enregistrer"
+
+// Page Header
+.row
+    .col-lg-12
+        h1.page-header S'enregistrer
+// /.row
+.row
+    .col-md-3
+    |
+    .alert.alert-danger.col-md-6.errorMessage  {{ createUserErrorMessage }}
+    |
+    .col-md-3
+// Projects Row
+.row
+    .col-md-3
+    |
+    form.col-md-6.form-signin(name="form" action="/session/signup")
+        label Email
+        input.form-control(type="email" name="email" placeholder="email"  required="required" min="1" autofocus="")
+        |
+        br
+        |
+        label Nom
+        input.form-control(type="text" name="lastname" placeholder="Nom" required="required" min="1" autofocus="")
+        |
+        br
+        |
+        label Prénom
+        input.form-control(type="text" name="firstname" placeholder="Prénom" required="required" min="1" autofocus="")
+        |
+        br
+        |
+        label Mot de passe
+        input.form-control(type="password" name="password" placeholder="password" ng-model="user.password" required="required")
+        |
+        hr
+        |
+        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="S'enregister")
+    |
+    .col-md-3
+|
