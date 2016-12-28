@@ -24,15 +24,24 @@ class Project {
   }
 
   def findAllIndexProjects () = {
-
+    val query = MongoDBObject("creationDate" -> 1)
+    val res = mongoDB.find().sort(query)
+    res
   }
 
   def findBestProjects () = {
-
+    val query = MongoDBObject(
+      "amount" -> -1,
+      "creationDate" -> 1
+    )
+    val res = mongoDB.find().sort(query).limit(30)
+    res
   }
 
   def findAllAccountProject (email : String) = {
-
+    val query = MongoDBObject("accountEmail" -> email)
+    val res = mongoDB.find(query)
+    res
   }
 
   def createProject (name : String, description : String, author : String, contact : String,
@@ -60,23 +69,32 @@ class Project {
 
     /* Check if the value has been added */
     if (initNb + 1 == mongoDB.count())
+      initNb + 1
+    else
+      0
+  }
+
+  def updateProject (id : Int, name : String, description : String, author : String, contact : String) = {
+    /* Creatng update query */
+    val query = MongoDBObject ("id" -> id)
+    val update = $set("name" -> name, "description" -> description, "author" -> author, "contact" -> contact)
+    mongoDB.update(query, update)
+
+    /* Getting project update to check if the update have been done */
+    val project = this.findProjectById(id)(0)
+    if (project.get("name") == name  && project.get("description") == description && project.get("author") == author
+      && project.get("contact") == contact)
       true
     else
       false
   }
 
-  def updateProject () = {
-
-  }
-
   def updateProjectCounterparts (projectId : Int) = {
     /* get the current number of participation*/
-    var currentParticipate : Int = this.findProjectById(projectId)(0).get("participeNb").toString.toInt
+    val currentParticipate : Int = this.findProjectById(projectId)(0).get("participeNb").toString.toInt
 
     /* Creating update query */
-    val query = MongoDBObject({
-      "id" -> projectId
-    })
+    val query = MongoDBObject("id" -> projectId)
     val update = $set("participeNb" -> (currentParticipate + 1))
     /* update Database */
     mongoDB.update(query, update)
@@ -100,9 +118,7 @@ class Project {
     val counterpartPrice = counterpart.get("value").toString.toInt
 
     /* Creating update query */
-    val query = MongoDBObject({
-      "id" -> projectId
-    })
+    val query = MongoDBObject("id" -> projectId)
     val update = $set("amount" -> (currentAmount + counterpartPrice))
     /* update the database */
     mongoDB.update(query, update)

@@ -8,7 +8,7 @@ import com.mongodb.casbah.commons.MongoDBObject
   */
 class Counterpart {
   val mongoConn = MongoConnection()
-  val mongoDB = mongoConn("tipz")("account")
+  val mongoDB = mongoConn("tipz")("counterpart")
 
   def findAllCounterparts() = {
     val res = mongoDB.find().toArray
@@ -39,9 +39,9 @@ class Counterpart {
 
     /* Check if the value has been added */
     if (initNb + 1 == mongoDB.count())
-      true
+      initNb + 1
     else
-      false
+      0
   }
 
   def closeConnection() = {
