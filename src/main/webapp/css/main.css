@@ -1,0 +1,44 @@
+textarea {
+    resize: none;
+}
+
+footer {
+    padding-top: 1%;
+}
+
+.descriptionDisplay {
+    height: 100px;
+    word-wrap: break-word;         /* All browsers since IE 5.5+ */
+    overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
+    overflow: hidden;
+}
+
+.projectDescriptionDisplay {
+    word-wrap: break-word;         /* All browsers since IE 5.5+ */
+    overflow-wrap: break-word;     /* Renamed property in CSS3 draft spec */
+}
+
+.itemDisplay {
+    margin: 5px;
+    padding: 5px;
+    border-radius:5px;
+    border:1px solid lightgrey;
+}
+
+.whiteText {
+    color: white;
+}
+
+.rightText {
+    text-align: right;
+}
+
+.margeTop {
+    margin-top: 10px;
+}
+
+.errorMessage {
+    padding-top: 1%;
+    padding-bottom: 3%;
+    text-align: center;
+}

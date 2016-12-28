@@ -1,12 +1,81 @@
--@ val title: String
--@ val headline: String = title
--@ val body: String
+-@val title: String
+-@val body: String
+-@val user : String
 
-!!!
-html
+!!! 5
+html(lang='en')
   head
-    title= title
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width initial-scale=1')
+    meta(name='description' content='Crowdfunding website for the course NLPF of EPITA')
+    meta(name='author' content='Valentin ZHENG / Gregoire DE CHENERILLES')
+    title = title
+    // Bootstrap Core CSS
+    link(href='../../css/bootstrap.min.css' rel='stylesheet')
+    // Custom CSS
+    link(href='../../css/3-col-portfolio.css' rel='stylesheet')
+    link(href='../../css/main.css' rel='stylesheet')
+    script(src='../../js/lib/ckeditor/ckeditor.js')
+
   body
-    #content
-      h1= headline
+    // Navigation
+    nav.navbar.navbar-inverse.navbar-fixed-top(role="navigation")
+      .container
+        // Brand and toggle get grouped for better mobile display
+        .navbar-header
+          button.navbar-toggle(type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1")
+            span.sr-only Toggle navigation
+            |
+            span.icon-bar
+            |
+            span.icon-bar
+            |
+            span.icon-bar
+            |
+            span.icon-bar
+          |
+          a.navbar-brand(href="/") Tipz - Accueil
+        // Collect the nav links, forms, and other content for toggling
+        #bs-example-navbar-collapse-1.collapse.navbar-collapse
+          ul.nav.navbar-nav
+            li
+              a(href="/project/Add") Créer un projet
+            |
+            li
+              a(href="/best") Les meilleurs projets
+          |
+          ul.nav.navbar-nav.navbar-right
+            li
+              - if (user.length() == 0) {
+                a(href="/session/signup") S'enregister
+              - } else {
+                a(href="/myProjects")  #{user}
+              - }
+            |
+            li
+              - if (user.length() == 0) {
+                a(href="/session/signin") Se connecter
+              - } else {
+                a(href="/session/logout") Se déconnecter
+              - }
+            |
+          |
+        // /.navbar-collapse
+      // /.container
+    |
+    .container
       != body
+      hr
+      // Footer
+      footer
+        .row
+          .col-lg-12
+            p Copyright © Les Versaillais 2016
+      // /.row
+    |
+    // jQuery
+    script(src='../../js/lib/jquery.js')
+    // Bootstrap Core JavaScript
+    script(src='../../js/lib/bootstrap.min.js')
+|

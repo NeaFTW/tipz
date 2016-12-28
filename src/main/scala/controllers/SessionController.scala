@@ -24,7 +24,7 @@ class SessionController extends TipzStack {
     </html>
   }
 
-  get("/logout)") {
+  get("/logout") {
     <html>
       <body>
         <h1>Signout</h1>

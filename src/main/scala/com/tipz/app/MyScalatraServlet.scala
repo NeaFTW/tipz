@@ -8,7 +8,9 @@ class MyScalatraServlet extends TipzStack {
     contentType="text/html"
 
     layoutTemplate("/WEB-INF/views/hello-scalate.jade",
-      "test" -> "Heignwiehg reignreouig rgirngiu eruig")
+      "test" -> "Heignwiehg reignreouig rgirngiu eruig",
+      "user" -> ""
+    )
   }
 
   get("/best") {
