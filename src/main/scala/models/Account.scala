@@ -11,7 +11,7 @@ class Account {
   val mongoConn = MongoConnection()
   val mongoDB = mongoConn("tipz")("account")
 
-  def findAllAccount() = {
+  def findAllAccounts() = {
     val res = mongoDB.find().toArray
     res
   }
@@ -24,15 +24,15 @@ class Account {
 
   def createUser(email : String, password : String, firstname : String, lastname : String) = {
     /* Getting the initial size of the collection */
-    val initNb = mongoDB.find().size
+    val initNb = mongoDB.count()
 
     /* Creating the mongoObject of the user */
-    val user = MongoDBObject(
-      "email" -> email,
-      "password" -> password,
-      "firstname" -> firstname,
-      "lastname" -> lastname
-    )
+    val builder = MongoDBObject.newBuilder
+    builder += "email" -> email
+    builder += "password" -> password
+    builder += "firstname" -> firstname
+    builder += "lastname" -> lastname
+    val user = builder.result
 
     /* Insert data into the collection */
     mongoDB.insert(user)
