@@ -5,11 +5,14 @@ import org.scalatra._
 class MyScalatraServlet extends TipzStack {
 
   get("/") {
+    var user = ""
+    if (session.getAttribute("email") != null)
+      user = session.getAttribute("email").toString
     contentType="text/html"
 
     layoutTemplate("/WEB-INF/views/hello-scalate.jade",
       "test" -> "Heignwiehg reignreouig rgirngiu eruig",
-      "user" -> ""
+      "user" -> user
     )
   }
 

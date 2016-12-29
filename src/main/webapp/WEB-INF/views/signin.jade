@@ -1,20 +1,28 @@
 - attributes("title") = "Tipz - Se connecter"
+-@ val errorMessage : String
+-@ val email : String
 
 // Page Header
 .row
     .col-lg-12
         h1.page-header Se connecter
+
+- if (errorMessage != "") {
 // /.row
 .row
     .col-md-3
-    .alert.alert-danger.col-md-6.errorMessage  {{ loginErrorMessage }}
+    |
+    .alert.alert-danger.col-md-6.errorMessage  #{errorMessage}
+    |
     .col-md-3
 // Projects Row
+- }
+
 .row
     .col-md-3
-    form.col-md-6.form-signin(name='form' action='/session/signin')
+    form.col-md-6.form-signin(name='form' action='/session/signin' method="post")
         label Email
-        input.form-control(type='email' name='email' placeholder='email' required='required' autofocus='')
+        input.form-control(type='email' name='email' placeholder='email' value="#{email}" required='required' autofocus='')
         br
         label Mot de passe
         input.form-control(type='password' name='password' placeholder='password' required='required')
