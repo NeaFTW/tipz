@@ -2,7 +2,7 @@ package controllers
 
 import com.mongodb.casbah.Imports
 import com.tipz.app.TipzStack
-import models.{Counterpart, Project}
+import models.{Account, Counterpart, Project}
 import org.scalatra._
 
 /**
@@ -106,6 +106,37 @@ class ProjectController extends TipzStack {
   }
 
   post("/add") {
+    var user = ""
+    var errorMessage = ""
+    if (session.getAttribute("email") != null)
+      user = session.getAttribute("email").toString
+    else
+      redirect("/session/signin")
+
+    val name = params("name")
+    val description = params("description")
+    val author = params("author")
+    val contact = params("contact")
+
+    if (description.length < 140)
+      errorMessage += "The description must have more than 140 caracters ! "
+
+    if (errorMessage == "") {
+      val projectModel = new Project
+      val res = projectModel.createProject(name, description, author, contact, user)
+      redirect("/project/add/" + res + "/")
+    }
+
+    contentType="text/html"
+
+    layoutTemplate("/WEB-INF/views/editProject.jade",
+      "user" -> user,
+      "errorMessage" -> errorMessage,
+      "projectDescription" -> description,
+      "projectName" -> name,
+      "projectAuthor" -> author,
+      "projectContact" -> contact
+    )
 
   }
 
@@ -113,11 +144,11 @@ class ProjectController extends TipzStack {
 
   }
 
-  post("/counterpartAddToList") {
+  post("/add/:projectId/counterpartAddToList") {
 
   }
 
-  post("/counterpartsAdd") {
+  post("/add/:projectId/save") {
 
   }
 
