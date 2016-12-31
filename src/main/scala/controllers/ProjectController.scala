@@ -1,5 +1,6 @@
 package controllers
 
+import com.mongodb.casbah.Imports
 import com.tipz.app.TipzStack
 import org.scalatra._
 
@@ -8,30 +9,86 @@ import org.scalatra._
   */
 class ProjectController extends TipzStack {
   get("/add") {
-    <html>
-      <body>
-        <h1>Create project</h1>
-      </body>
-    </html>
+    var user = ""
+    if (session.getAttribute("email") != null)
+      user = session.getAttribute("email").toString
+    else
+      redirect("/session/signin")
+
+    contentType="text/html"
+
+    layoutTemplate("/WEB-INF/views/editProject.jade",
+      "user" -> user,
+      "errorMessage" -> "",
+      "projectDescription" -> "",
+      "projectName" -> "",
+      "projectAuthor" -> "",
+      "projectContact" -> ""
+    )
   }
 
-  get("/:projectId") {
-    <html>
-      <body>
-        <h1>Project view {params("projectId")}</h1>
-      </body>
-    </html>
+  get("/add/:projectId/") {
+    var user = ""
+    if (session.getAttribute("email") != null)
+      user = session.getAttribute("email").toString
+    else
+      redirect("/session/signin")
+
+    contentType="text/html"
+
+    layoutTemplate("/WEB-INF/views/addCounterpart.jade",
+      "user" -> user,
+      "errorMessage" -> "",
+      "projectDescription" -> "",
+      "projectName" -> "",
+      "projectAuthor" -> "",
+      "projectContact" -> ""
+    )
   }
 
-  get("/:projectId/edit") {
-    <html>
-      <body>
-        <h1>Project edit {params("projectId")}</h1>
-      </body>
-    </html>
+  get("/:projectId/") {
+    var user = ""
+    if (session.getAttribute("email") != null)
+      user = session.getAttribute("email").toString
+    val counterpartList = Nil
+
+    contentType="text/html"
+
+    layoutTemplate("/WEB-INF/views/project.jade",
+      "user" -> user,
+      "errorMessage" -> "",
+      "projectDescription" -> "",
+      "projectName" -> "",
+      "projectAuthor" -> "",
+      "projectContact" -> "",
+      "counterpartList" -> counterpartList
+    )
+  }
+
+  get("/:projectId/edit/") {
+    var user = ""
+    if (session.getAttribute("email") != null)
+      user = session.getAttribute("email").toString
+    else
+      redirect("/session/signin")
+
+    contentType="text/html"
+
+    layoutTemplate("/WEB-INF/views/editProject.jade",
+      "user" -> user,
+      "errorMessage" -> "",
+      "projectDescription" -> "",
+      "projectName" -> "",
+      "projectAuthor" -> "",
+      "projectContact" -> ""
+    )
   }
 
   post("/add") {
+
+  }
+
+  post("/add/:projectId/") {
 
   }
 
@@ -45,5 +102,9 @@ class ProjectController extends TipzStack {
 
   post("/:projectId/save") {
 
+  }
+
+  get("/") {
+    redirect("/")
   }
 }

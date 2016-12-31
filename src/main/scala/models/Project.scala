@@ -25,7 +25,7 @@ class Project {
 
   def findAllIndexProjects () = {
     val query = MongoDBObject("creationDate" -> 1)
-    val res = mongoDB.find().sort(query)
+    val res = mongoDB.find().sort(query).toList
     res
   }
 
@@ -34,13 +34,13 @@ class Project {
       "amount" -> -1,
       "creationDate" -> 1
     )
-    val res = mongoDB.find().sort(query).limit(30)
+    val res = mongoDB.find().sort(query).limit(30).toList
     res
   }
 
   def findAllAccountProject (email : String) = {
     val query = MongoDBObject("accountEmail" -> email)
-    val res = mongoDB.find(query)
+    val res = mongoDB.find(query).toList
     res
   }
 

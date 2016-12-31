@@ -11,17 +11,17 @@ class Counterpart {
   val mongoDB = mongoConn("tipz")("counterpart")
 
   def findAllCounterparts() = {
-    val res = mongoDB.find().toArray
+    val res = mongoDB.find().toList
     res
   }
 
   def findById(id : Int) = {
     val query = MongoDBObject("id" -> id)
-    val res = mongoDB.find(query).toArray
+    val res = mongoDB.find(query).toList
     res
   }
 
-  def createCounterpart(name : String, value : Int, description : String, projectId : Int) = {
+  def createCounterpart(name : String, value : Float, description : String, projectId : Int) = {
     /* Getting the initial size of the collection */
     val initNb = mongoDB.count()
 

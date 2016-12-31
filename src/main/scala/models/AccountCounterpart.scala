@@ -19,15 +19,31 @@ class AccountCounterpart {
     val query = MongoDBObject(
       "accountEmail" -> accountEmail
     )
-    val res = mongoDB.find(query)
+    val res = mongoDB.find(query).toList
     res
   }
 
   def findAllAccountBoughtByCounterpart(counterpartId : Int) = {
     val query = MongoDBObject(
-      "counterparId" -> counterpartId
+      "counterpartId" -> counterpartId
     )
-    val res = mongoDB.find(query)
+    val res = mongoDB.find(query).toList
+    res
+  }
+
+  def isAlreadyBought(counterpartId : Int, accountEmail : String) = {
+    val query = MongoDBObject(
+      "accountEmail" -> accountEmail,
+      "counterpartId" -> counterpartId
+    )
+    println("Id : " + counterpartId)
+    println("email : " + accountEmail)
+    val res = mongoDB.find(query).toList
+    println(res)
+    if (!res.isEmpty)
+      true
+    else
+      false
   }
 
   def insertAccountCounterpart(accountEmail : String, counterpartId : Int) = {
@@ -48,5 +64,9 @@ class AccountCounterpart {
       true
     else
       false
+  }
+
+  def closeConnection() = {
+    mongoConn.close()
   }
 }

@@ -99,6 +99,7 @@ class SessionController extends TipzStack {
       if (res == false)
         errorMessage += "Cannot create user ! "
     }
+    accountModel.closeConnection()
 
     if (errorMessage == "") {
       session.setAttribute("email", email)

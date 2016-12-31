@@ -12,13 +12,13 @@ class Account {
   val mongoDB = mongoConn("tipz")("account")
 
   def findAllAccounts() = {
-    val res = mongoDB.find().toArray
+    val res = mongoDB.find().toList
     res
   }
 
   def findByEmail(email : String) = {
     val query = MongoDBObject("email" -> email)
-    val res = mongoDB.find(query).toArray
+    val res = mongoDB.find(query).toList
     res
   }
 
