@@ -8,11 +8,11 @@ import org.scalatra.test.specs2.ScalatraSpec
   * Created by root on 31/12/16.
   */
 class FindAccountSuccess extends ScalatraSpec { def is =
-    "Account model insertion"                     ^
-    "should return length notEqual 0"                  ! insertAccount^
+    "Account model Find success"                     ^
+    "should return length notEqual 0"                  ! findAccount^
     end
 
-  def insertAccount = {
+  def findAccount = {
     val accountModel = new Account
     accountModel.createUser("nea@nea.fr", "123", "nea", "walker")
     val res = accountModel.findByEmail("nea@nea.fr")

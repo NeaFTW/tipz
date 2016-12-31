@@ -8,7 +8,7 @@ import org.scalatra.test.specs2.ScalatraSpec
   * Created by root on 31/12/16.
   */
 class FindAccountFail extends ScalatraSpec { def is =
-  "Account model find Account fail"                     ^
+  " Account model find Account fail"                     ^
     "should return list must be empty"                  ! findAccount^
     end
 
