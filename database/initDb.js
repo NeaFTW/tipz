@@ -1,7 +1,5 @@
-/*
- con = new Mongo();
- var db = connect("localhost:27020/tipz");
- */
+con = new Mongo();
+var db = connect("localhost:27020/tipz");
 
 
 /* Account collection */

@@ -6,5 +6,11 @@ jdk:
 scala:
   - 2.11.8
 
+services:
+  - mongodb
+
+before_script:
+  - mongo < database/initDb.js
+
 script:
   - sbt test
