@@ -12,23 +12,40 @@ class Project {
   val mongoConn = MongoConnection()
   val mongoDB = mongoConn("tipz")("project")
 
+  /**
+    * Get all project into the database
+    * @return List of the projects
+    */
   def findAllProjects() = {
     val res = mongoDB.find().toList
     res
   }
 
+  /**
+    * Get the project by ots id
+    * @param id
+    * @return List of project containing the project
+    */
   def findProjectById (id : Int) = {
     val query = MongoDBObject("id" -> id)
     val res = mongoDB.find(query).toList
     res
   }
 
+  /**
+    * Get all project ordered by date
+    * @return List of projects ordered by date
+    */
   def findAllIndexProjects () = {
     val query = MongoDBObject("creationDate" -> 1)
     val res = mongoDB.find().sort(query).toList
     res
   }
 
+  /**
+    * Get the 30 best projects
+    * @return List of the 30 best projects
+    */
   def findBestProjects () = {
     val query = MongoDBObject(
       "amount" -> -1,
@@ -38,12 +55,26 @@ class Project {
     res
   }
 
+  /**
+    * Get all project associated owned by the user
+    * @param email
+    * @return list of the user projects
+    */
   def findAllAccountProject (email : String) = {
     val query = MongoDBObject("accountEmail" -> email)
     val res = mongoDB.find(query).toList
     res
   }
 
+  /**
+    * Create projects and insert data into the database
+    * @param name
+    * @param description
+    * @param author
+    * @param contact
+    * @param accountEmail
+    * @return the id of the project
+    */
   def createProject (name : String, description : String, author : String, contact : String,
                      accountEmail : String) = {
     /* Getting the initial number of element into the collection*/
@@ -74,6 +105,15 @@ class Project {
       0
   }
 
+  /**
+    * Update the project infos into the database
+    * @param id
+    * @param name
+    * @param description
+    * @param author
+    * @param contact
+    * @return true or false
+    */
   def updateProject (id : Int, name : String, description : String, author : String, contact : String) = {
     /* Creatng update query */
     val query = MongoDBObject ("id" -> id)
@@ -89,6 +129,11 @@ class Project {
       false
   }
 
+  /**
+    * Update the number of participant into the database
+    * @param projectId
+    * @return true or false
+    */
   def updateProjectCounterparts (projectId : Int) = {
     /* get the current number of participation*/
     val currentParticipate : Int = this.findProjectById(projectId)(0).get("participeNb").toString.toInt
@@ -106,6 +151,12 @@ class Project {
       false
   }
 
+  /**
+    * Update the project total amount
+    * @param counterpartId
+    * @param amount
+    * @return true or false
+    */
   def updateProjectAmount (counterpartId : Int, amount : Float) = {
     /* getting the projecId associated to the counterpart*/
     val counterPartModel = new Counterpart
@@ -130,6 +181,9 @@ class Project {
       false
   }
 
+  /**
+    * Close the database connection
+    */
   def closeConnection() = {
     mongoConn.close()
   }

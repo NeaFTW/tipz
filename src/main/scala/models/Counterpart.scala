@@ -10,23 +10,45 @@ class Counterpart {
   val mongoConn = MongoConnection()
   val mongoDB = mongoConn("tipz")("counterpart")
 
+  /**
+    * Get all counterparts
+    * @return the list of the projects
+    */
   def findAllCounterparts() = {
     val res = mongoDB.find().toList
     res
   }
 
+  /**
+    * Get the list of the counterpart associated to an id
+    * @param id
+    * @return the list containing the project
+    */
   def findById(id : Int) = {
     val query = MongoDBObject("id" -> id)
     val res = mongoDB.find(query).toList
     res
   }
 
+  /**
+    * Get all counterparts associated to a project
+    * @param projectId
+    * @return the list of the project
+    */
   def findAllCounterpartsByProject(projectId : Int) = {
     val query = MongoDBObject("projectId" -> projectId)
     val res = mongoDB.find(query).toList
     res
   }
 
+  /**
+    * Insert a new counterpart in the database
+    * @param name
+    * @param value
+    * @param description
+    * @param projectId
+    * @return the id of the counterpart
+    */
   def createCounterpart(name : String, value : Float, description : String, projectId : Int) = {
     /* Getting the initial size of the collection */
     val initNb = mongoDB.count()
@@ -50,6 +72,9 @@ class Counterpart {
       0
   }
 
+  /**
+    * Close the connection to the database
+    */
   def closeConnection() = {
     mongoConn.close()
   }

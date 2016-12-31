@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest
 import collection.mutable
 
 trait TipzStack extends ScalatraServlet with ScalateSupport {
-
+  /**
+    * Not found route handling
+    */
   notFound {
     // remove content type in case it was set through an action
     contentType = null

@@ -7,6 +7,10 @@ import org.eclipse.jetty.webapp.WebAppContext
 import org.scalatra.servlet.ScalatraListener
 
 object JettyLauncher {
+  /**
+    * Creation of the servlet runnint the app for war app
+    * @param args
+    */
   def main(args: Array[String]) {
     val port = if(System.getenv("PORT") != null) System.getenv("PORT").toInt else 80
 
