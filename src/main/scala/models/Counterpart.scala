@@ -21,6 +21,12 @@ class Counterpart {
     res
   }
 
+  def findAllCounterpartsByProject(projectId : Int) = {
+    val query = MongoDBObject("projectId" -> projectId)
+    val res = mongoDB.find(query).toList
+    res
+  }
+
   def createCounterpart(name : String, value : Float, description : String, projectId : Int) = {
     /* Getting the initial size of the collection */
     val initNb = mongoDB.count()

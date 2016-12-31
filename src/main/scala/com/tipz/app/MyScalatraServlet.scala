@@ -57,4 +57,15 @@ class MyScalatraServlet extends TipzStack {
       "projectList" -> projectList
     )
   }
+
+  get("/403") {
+    var user = ""
+    if (session.getAttribute("email") != null)
+      user = session.getAttribute("email").toString
+    contentType="text/html"
+
+    layoutTemplate("/WEB-INF/views/error403.jade",
+      "user" -> user
+    )
+  }
 }

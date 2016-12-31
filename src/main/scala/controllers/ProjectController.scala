@@ -2,6 +2,7 @@ package controllers
 
 import com.mongodb.casbah.Imports
 import com.tipz.app.TipzStack
+import models.{Counterpart, Project}
 import org.scalatra._
 
 /**
@@ -34,15 +35,17 @@ class ProjectController extends TipzStack {
     else
       redirect("/session/signin")
 
+    val counterpartList : List[Imports.DBObject] = Nil
+
     contentType="text/html"
 
-    layoutTemplate("/WEB-INF/views/addCounterpart.jade",
+    layoutTemplate("/WEB-INF/views/counterpartList.jade",
       "user" -> user,
       "errorMessage" -> "",
-      "projectDescription" -> "",
-      "projectName" -> "",
-      "projectAuthor" -> "",
-      "projectContact" -> ""
+      "counterpartDescription" -> "",
+      "counterpartName" -> "",
+      "counterpartValue" -> 0.0f,
+      "counterpartList" -> counterpartList
     )
   }
 
@@ -50,17 +53,26 @@ class ProjectController extends TipzStack {
     var user = ""
     if (session.getAttribute("email") != null)
       user = session.getAttribute("email").toString
-    val counterpartList = Nil
+
+    val id = Integer.parseInt(params("projectId"))
+
+    val projectModel = new Project
+    val project = projectModel.findProjectById(id)(0)
+    projectModel.closeConnection()
+
+    val counterpartModel = new Counterpart
+    val counterpartList = counterpartModel.findAllCounterpartsByProject(id)
+    counterpartModel.closeConnection()
 
     contentType="text/html"
 
     layoutTemplate("/WEB-INF/views/project.jade",
       "user" -> user,
       "errorMessage" -> "",
-      "projectDescription" -> "",
-      "projectName" -> "",
-      "projectAuthor" -> "",
-      "projectContact" -> "",
+      "projectDescription" -> project.get("description"),
+      "projectName" -> project.get("name"),
+      "projectAuthor" -> project.get("author"),
+      "projectContact" -> project.get("contact"),
       "counterpartList" -> counterpartList
     )
   }
@@ -72,15 +84,24 @@ class ProjectController extends TipzStack {
     else
       redirect("/session/signin")
 
+    val id = Integer.parseInt(params("projectId"))
+
+    val projectModel = new Project
+    val project = projectModel.findProjectById(id)(0)
+    projectModel.closeConnection()
+
+    if (project.get("contact") != user)
+      redirect("/403")
+
     contentType="text/html"
 
     layoutTemplate("/WEB-INF/views/editProject.jade",
       "user" -> user,
       "errorMessage" -> "",
-      "projectDescription" -> "",
-      "projectName" -> "",
-      "projectAuthor" -> "",
-      "projectContact" -> ""
+      "projectDescription" -> project.get("description"),
+      "projectName" -> project.get("name"),
+      "projectAuthor" -> project.get("author"),
+      "projectContact" -> project.get("contact")
     )
   }
 
