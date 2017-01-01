@@ -48,7 +48,7 @@ class Project {
     */
   def findBestProjects () = {
     val query = MongoDBObject(
-      "weigth" -> -1,
+      "weight" -> -1,
       "creationDate" -> 1
     )
     val res = mongoDB.find().sort(query).limit(30).toList
@@ -92,7 +92,7 @@ class Project {
     builder += "author" -> author
     builder += "contact" -> contact
     builder += "participeNb" -> 0
-    builder += "weigth" -> 0
+    builder += "weight" -> 0
     builder += "accountEmail" -> accountEmail
     val project = builder.result
 
@@ -183,11 +183,11 @@ class Project {
   }
 
   /**
-    * Function that update the project weigth
+    * Function that update the project weight
     * @param projectId
     * @return
     */
-  def updateProjectWeigth (projectId : Int) = {
+  def updateProjectweight (projectId : Int) = {
     /* getting the projecId associated to the counterpart*/
     val projectModel = new Project
     val project = projectModel.findProjectById(projectId)(0)
@@ -201,7 +201,7 @@ class Project {
     mongoDB.update(query, update)
 
     /* Check if the update succeed or not */
-    if (this.findProjectById(projectId)(0).get("amount").toString.toFloat != project.get("weigth").toString.toFloat)
+    if (this.findProjectById(projectId)(0).get("amount").toString.toFloat != project.get("weight").toString.toFloat)
       true
     else
       false

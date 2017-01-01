@@ -95,7 +95,7 @@ class ParticipateController extends TipzStack {
       if (res == true) {
         projectModel.updateProjectCounterparts(projectId)
         projectModel.updateProjectAmount(id, counterpart.get("value").toString.toFloat)
-        projectModel.updateProjectWeigth(projectId)
+        projectModel.updateProjectweight(projectId)
         projectModel.closeConnection()
         redirect("/")
       }
