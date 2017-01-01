@@ -1,6 +1,6 @@
-con = new Mongo();
+/*con = new Mongo();
 var db = connect("localhost:27020/tipz");
-
+*/
 
 /* Account collection */
 db.account.insert({

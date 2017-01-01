@@ -10,7 +10,7 @@ services:
   - mongodb
 
 before_script:
-  - mongo < database/initDb.js
+  - mongo localhost:27017 database/initDb.js
 
 script:
   - sbt test
