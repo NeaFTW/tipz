@@ -81,25 +81,31 @@ class ParticipateController extends TipzStack {
 
     /* Get the project trought the counterpart */
     val projectModel = new Project
-    val counterpartId : Int = counterpart.get("id").toString.toFloat.toInt
-    val project = projectModel.findProjectById(counterpartId)(0)
+    val projectId : Int = counterpart.get("projectId").toString.toFloat.toInt
+    val project = projectModel.findProjectById(projectId)(0)
 
     val accountCounterpartModel = new AccountCounterpart
-    val isAlreadyBought = accountCounterpartModel.isAlreadyBought(counterpartId, user)
+    val isAlreadyBought = accountCounterpartModel.isAlreadyBought(id, user)
 
     /* Check if the user already apply to the counterpart. If false, add the participation into the database
-    * otherwise send an error */
+    * otherwise send an error. And update the project amount and the amount of user that participate to the project */
     if (isAlreadyBought == false) {
-      val res = accountCounterpartModel.insertAccountCounterpart(user, counterpartId)
+      val res = accountCounterpartModel.insertAccountCounterpart(user, id)
       accountCounterpartModel.closeConnection()
-      if (res == true)
+      if (res == true) {
+        projectModel.updateProjectCounterparts(projectId)
+        projectModel.updateProjectAmount(id, counterpart.get("value").toString.toFloat)
+        projectModel.updateProjectWeigth(projectId)
+        projectModel.closeConnection()
         redirect("/")
+      }
       else
         participateErrorMessage += "The purchase cannot be done ! contact the webmaster of the website ! "
     }
     else
       participateErrorMessage += "You already have bought this counterpart for this project ! "
     accountCounterpartModel.closeConnection()
+    projectModel.closeConnection()
 
     /* Rendering template */
     contentType="text/html"

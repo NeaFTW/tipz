@@ -97,6 +97,8 @@ class ProjectController extends TipzStack {
     val counterpartList = counterpartModel.findAllCounterpartsByProject(id)
     counterpartModel.closeConnection()
 
+    val contributorList = counterpartModel.findAllUserParticipationToProject(id)
+
     /* Rendering template */
     contentType="text/html"
 
@@ -108,7 +110,7 @@ class ProjectController extends TipzStack {
       "projectAuthor" -> project.get("author"),
       "projectContact" -> project.get("contact"),
       "counterpartList" -> counterpartList,
-      "participateList" -> counterpartList
+      "participateList" -> contributorList
     )
   }
 

@@ -1,7 +1,7 @@
 package models
 
 import utils.DateGetter
-import com.mongodb.casbah.{Imports, MongoConnection}
+import com.mongodb.casbah.{Imports, MongoClient, MongoConnection}
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.casbah.query.Imports._
 
@@ -48,7 +48,7 @@ class Project {
     */
   def findBestProjects () = {
     val query = MongoDBObject(
-      "amount" -> -1,
+      "weigth" -> -1,
       "creationDate" -> 1
     )
     val res = mongoDB.find().sort(query).limit(30).toList
@@ -92,6 +92,7 @@ class Project {
     builder += "author" -> author
     builder += "contact" -> contact
     builder += "participeNb" -> 0
+    builder += "weigth" -> 0
     builder += "accountEmail" -> accountEmail
     val project = builder.result
 
@@ -165,8 +166,8 @@ class Project {
     val projectId = counterpart.get("projectId").toString.toInt
 
     /* Gettint project current amount and counterpart price*/
-    val currentAmount = this.findProjectById(projectId)(0).get("amount").toString.toInt
-    val counterpartPrice = counterpart.get("value").toString.toInt
+    val currentAmount = this.findProjectById(projectId)(0).get("amount").toString.toFloat
+    val counterpartPrice = counterpart.get("value").toString.toFloat
 
     /* Creating update query */
     val query = MongoDBObject("id" -> projectId)
@@ -175,7 +176,32 @@ class Project {
     mongoDB.update(query, update)
 
     /* Check if the update succeed or not */
-    if (this.findProjectById(projectId)(0).get("amount").toString.toInt == (currentAmount + counterpartPrice))
+    if (this.findProjectById(projectId)(0).get("amount").toString.toFloat != currentAmount)
+      true
+    else
+      false
+  }
+
+  /**
+    * Function that update the project weigth
+    * @param projectId
+    * @return
+    */
+  def updateProjectWeigth (projectId : Int) = {
+    /* getting the projecId associated to the counterpart*/
+    val projectModel = new Project
+    val project = projectModel.findProjectById(projectId)(0)
+    val amount = project.get("amount").toString.toFloat
+    val nbParticipate = project.get("participateNb").toString.toInt
+
+    /* Creating update query */
+    val query = MongoDBObject("id" -> projectId)
+    val update = $set("amount" -> (amount * nbParticipate))
+    /* update the database */
+    mongoDB.update(query, update)
+
+    /* Check if the update succeed or not */
+    if (this.findProjectById(projectId)(0).get("amount").toString.toFloat != project.get("weigth").toString.toFloat)
       true
     else
       false

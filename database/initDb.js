@@ -43,6 +43,7 @@ db.project.insert({
     author : "Admin Admin",
     contact : "admin@admin.com",
     participeNb : 1,
+    weigth : 15,
     accountEmail : "admin@admin.com"
 });
 
@@ -55,6 +56,7 @@ db.project.insert({
     author : "Admin Admin",
     contact : "admin@admin.com",
     participeNb : 0,
+    weigth : 0,
     accountEmail : "admin@admin.com"
 });
 
@@ -67,6 +69,7 @@ db.project.insert({
     author : "Admin Admin",
     contact : "admin@admin.com",
     participeNb : 0,
+    weigth : 0,
     accountEmail : "admin@admin.com"
 });
 
@@ -80,6 +83,7 @@ for (var i = 4; i < 12; ++i) {
         author : "Admin Admin",
         contact : "admin@admin.com",
         participeNb : 0,
+        weigth : 0,
         accountEmail : "admin@admin.com"
     });
 }

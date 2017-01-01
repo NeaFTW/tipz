@@ -1,6 +1,6 @@
 package models
 
-import com.mongodb.casbah.MongoConnection
+import com.mongodb.casbah.{Imports, MongoClient, MongoConnection}
 import com.mongodb.casbah.commons.MongoDBObject
 
 /**
@@ -38,6 +38,32 @@ class Counterpart {
   def findAllCounterpartsByProject(projectId : Int) = {
     val query = MongoDBObject("projectId" -> projectId)
     val res = mongoDB.find(query).toList
+    res
+  }
+
+  /**
+    * Function that will return all the contributor of a project
+    * @param projectId
+    * @return return a list containing email an conterpart amount
+    */
+  def findAllUserParticipationToProject (projectId : Int) = {
+    /* Getting counterpart list with the same projectID*/
+    val accountCounterpart = new AccountCounterpart
+    val counterpartByProjectId = this.findAllCounterpartsByProject(projectId)
+    /* Creating an empty list for result */
+    var res = List[Imports.DBObject]()
+    for (i <- 0 until counterpartByProjectId.length) {
+      val counterpartId = counterpartByProjectId(i).get("id").toString.toFloat.toInt
+      val accountList = accountCounterpart.findAllAccountBoughtByCounterpart(counterpartId)
+      for (j <- 0 until accountList.length) {
+        /* Create a new object containing the email and the value  of a the contributor and the contribution */
+        var tmp = MongoDBObject.newBuilder
+        tmp += "email" -> accountList(j).get("accountEmail")
+        tmp += "value" -> counterpartByProjectId(i).get("value").toString.toFloat
+        val obj = tmp.result()
+        res ::=  obj
+      }
+    }
     res
   }
 

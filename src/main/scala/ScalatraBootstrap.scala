@@ -4,7 +4,7 @@ import javax.servlet.ServletContext
 
 import com.tipz.app.MyScalatraServlet
 import controllers.{ParticipateController, ProjectController, SessionController}
-import models.Account
+import models.{Account, Counterpart}
 
 class ScalatraBootstrap extends LifeCycle {
   /**
