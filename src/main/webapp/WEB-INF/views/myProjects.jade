@@ -9,18 +9,19 @@
 
 .row
     table.table.table-striped.col-lg-12
-        .thead.tr
-            .th Projet
-            .th Date de création
-            .th Montant cumulé
-        .tbody
+        thead
+            tr
+                th Projet
+                th Date de création
+                th Montant cumulé
+        tbody
             - for(proj <- projectList) {
-                .tr
+                tr
                     -@ val url : String = "/project/" + proj.get("id").toString.toFloat.toInt + "/"
-                    .td
+                    td
                         a(href=url) #{proj.get("name")}
-                    .td
+                    td
                         p #{proj.get("creationDate")}
-                    .td
+                    td
                         p #{proj.get("amount")} € / mois
             - }

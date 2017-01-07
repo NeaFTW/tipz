@@ -30,3 +30,21 @@
             .rightText
                 a(href=url class="blackText rightText button") Sélectionner
         - }
+
+.row
+    .col-lg-12
+        h2.page-header Liste des contributeurs
+
+    table.table.table-striped.col-lg-12
+        thead
+            tr
+            th Email
+            th Montant
+        tbody
+            - for(participate <- participateList) {
+            tr
+                td
+                    p #{participate.get("email")}
+                td
+                    p #{participate.get("value")} € / mois
+            - }
