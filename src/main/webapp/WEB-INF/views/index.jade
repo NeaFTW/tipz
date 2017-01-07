@@ -10,6 +10,17 @@
 .row
     - for(proj <- projectList) {
         -@ val url : String = "/project/" + proj.get("id").toString.toFloat.toInt + "/"
-        a(href=url) Test
-        p = proj.get("name")
+        .col-md-4.portfolio-item
+            .col-lg-6.h3
+                a(href=url) #{proj.get("name")}
+            .col-lg-6
+                img(class="img-responsive" src="http://placehold.it/700x400" alt="")
+            .col-lg-12.margeTop
+                p Gain : #{proj.get("amount")} € / mois
+            .col-lg-12
+                p Créé le : #{proj.get("creationDate")}
+            .col-lg-12.itemDisplay.descriptionDisplay
+                p #{proj.get("description")}
+            .rightText.h4
+                a(href=url class="blackText rightText button") Participer !
     - }
