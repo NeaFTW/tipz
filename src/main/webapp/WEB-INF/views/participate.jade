@@ -30,4 +30,5 @@
     p #{counterpartDescription}
     -@ val url : String = "/participate/" + counterpartId + "/submit"
     .rightText
-        a(href=url class="blackText rightText button") J'accepte
+        a(href=url class="blackText rightText")
+            button(class="btn btn-primary" type="button") J'accepte
