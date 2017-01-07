@@ -7,4 +7,27 @@
 -@ val counterpartDescription : String
 -@ val counterpartId : Int
 
-p participate
+/ Page Header
+.row
+    .col-lg-12
+        h1.page-header Participer à un projet
+
+- if (participateErrorMessage != "") {
+// /.row
+.row
+    .col-md-3
+    |
+    .alert.alert-danger.col-md-6.errorMessage  #{participateErrorMessage}
+    |
+    .col-md-3
+// Projects Row
+- }
+
+.col-lg-12.portfolio-item.itemDisplay Vous confirmez votre participation à hauteur de #{counterpartValue} € par mois pour le projet #{projectName} de #{projectAuthor} ?
+
+.col-md-4.itemDisplay
+    h4.strong #{counterpartName} - #{counterpartValue} € / mois
+    p #{counterpartDescription}
+    -@ val url : String = "/participate/" + counterpartId + "/submit"
+    .rightText
+        a(href=url class="blackText rightText button") J'accepte
