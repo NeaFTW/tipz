@@ -2,4 +2,14 @@
 - attributes("title") = "Tipz - Home"
 -@ val projectList : List[Imports.DBObject]
 
-p= "Hello, Scalate! With list"
+// Page Header
+.row
+    .col-lg-12
+        h1.page-header Accueil
+
+.row
+    - for(proj <- projectList)
+        -@ val url : "/project/" + #{proj.get("id")} + "/"
+        a(title=title href=url) Test
+        p #{proj.get("name")}
+    - }

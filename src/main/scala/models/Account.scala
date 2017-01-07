@@ -2,7 +2,6 @@ package models
 
 import com.mongodb.casbah.commons.MongoDBObject
 import com.mongodb.casbah.{MongoCollection, MongoConnection, MongoCursor}
-import com.sun.javafx.cursor.CursorType
 
 /**
   * Created by root on 27/12/16.
