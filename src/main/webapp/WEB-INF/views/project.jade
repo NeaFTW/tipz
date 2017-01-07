@@ -8,4 +8,25 @@
 -@ val counterpartList : List[Imports.DBObject]
 -@ val participateList : List[Imports.DBObject]
 
-p Project name
+// Page Header
+.row
+    .col-lg-12
+        h1.page-header #{projectName} - Créé le #{projectCreation}
+
+.row
+    .col-md-6.portfolio-item
+        .itemDisplay
+            .projectDescriptionDisplay
+                p #{projectDescription}
+        p Par : #{projectAuthor}
+        p Contact : #{projectContact}
+
+    .col-md-6.portfolio-item.itemDisplay
+        - for(counterpart <- counterpartList) {
+            -@ val url : String = "/participate/" + counterpart.get("id").toString.toFloat.toInt
+            .h4.strong
+                p #{counterpart.get("name")} - #{counterpart.get("value")} € / mois
+            p #{counterpart.get("description")}
+            .rightText
+                a(href=url class="blackText rightText button") Sélectionner
+        - }
