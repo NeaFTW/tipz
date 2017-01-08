@@ -17,7 +17,7 @@
         tbody
             - for(proj <- projectList) {
                 tr
-                    -@ val url : String = "/project/" + proj.get("id").toString.toFloat.toInt + "/edit/"
+                    -@ val url : String = "/project/" + proj.get("id").toString.toFloat.toInt + "/"
                     td
                         a(href=url) #{proj.get("name")}
                     td

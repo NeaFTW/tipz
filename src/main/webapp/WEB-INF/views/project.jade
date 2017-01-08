@@ -15,6 +15,13 @@
     .col-lg-12
         h1.page-header #{projectName} - Créé le #{projectCreation}
 
+- if (projectContact == user) {
+.row.rightText
+    -@ val url : String = "/project/" + projectId + "/edit/"
+    a(href=url class="blackText rightText")
+        button(class="btn btn-primary" type="button") Editer le projet
+- }
+
 .row
     .col-md-6.portfolio-item
         .itemDisplay
@@ -23,16 +30,20 @@
         p Par : #{projectAuthor}
         p Contact : #{projectContact}
 
-    .col-md-6.portfolio-item.itemDisplay
-        - for(counterpart <- counterpartList) {
-            -@ val url : String = "/participate/" + counterpart.get("id").toString.toFloat.toInt
-            .h4.strong
-                p #{counterpart.get("name")} - #{counterpart.get("value")} € / mois
-            p #{counterpart.get("description")}
-            .rightText
-                a(href=url class="blackText rightText button") Sélectionner
-        - }
+    .col-md-6.portfolio-item
+        h4.strong Liste des contreparties :
+        .itemDisplay
+            - for(counterpart <- counterpartList) {
+                -@ val url : String = "/participate/" + counterpart.get("id").toString.toFloat.toInt
+                .h4.strong
+                    p #{counterpart.get("name")} - #{counterpart.get("value")} € / mois
+                p #{counterpart.get("description")}
+                .rightText
+                    a(href=url class="blackText rightText")
+                        button(class="btn btn-primary" type="button") Sélectionner
+            - }
 
+- if (projectContact == user) {
 .row
     .col-lg-12
         h2.page-header Liste des contributeurs
@@ -50,3 +61,4 @@
                 td
                     p #{participate.get("value")} € / mois
             - }
+- }

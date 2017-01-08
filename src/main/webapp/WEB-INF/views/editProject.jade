@@ -8,4 +8,36 @@
 -@ val projectId : Int
 
 
-p Project name creation
+// Page Header
+.row
+    .col-lg-12
+        h1.page-header Editer un projet
+
+- if (errorMessage != "") {
+// /.row
+.row
+    .col-md-3
+    |
+    .alert.alert-danger.col-md-6.errorMessage  #{errorMessage}
+    |
+    .col-md-3
+// Projects Row
+- }
+
+
+.row
+    -@ val url : String = "/project/add/" + projectId + "/"
+    form.col-md-6.portfolio-item(name="projectForm" action=url method="post")
+        label Nom du projet
+        input.form-control(type="text" name="projectName" placeholder="Nom du Projet"  required="required" value="#{projectName}" min="1" autofocus="")
+        |
+        br
+        |
+        label Description
+        textarea.form-control(id="projectDescription" rows="8")
+        textarea.form-control(id="hiddenProjectDescription" name="projectDescription" required="required")
+        |
+        hr
+        |
+        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Enregistrer")
+|
