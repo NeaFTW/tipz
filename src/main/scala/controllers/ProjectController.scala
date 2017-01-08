@@ -275,8 +275,8 @@ class ProjectController extends TipzStack {
     /* Check insert the counterpart if there is no errors for values */
     val counterpartModel = new Counterpart
     if (errorMessage == "") {
-      val res = counterpartModel.createCounterpart(counterpartName, counterpartValue, counterpartDescription, projectId)
-      if (res != 0) {
+      val res1 = counterpartModel.createCounterpart(counterpartName, counterpartValue, counterpartDescription, projectId)
+      if (res1 != 0) {
         errorMessage += "Insertion of the counterpart failed ! "
       }
     }
@@ -293,6 +293,7 @@ class ProjectController extends TipzStack {
       "counterpartDescription" -> "",
       "counterpartName" -> "",
       "counterpartValue" -> 0.0f,
+      "projectId" -> res(0).get("id").toString.toFloat.toInt,
       "counterpartList" -> counterpartList
     )
   }
