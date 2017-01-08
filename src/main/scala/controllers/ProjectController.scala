@@ -108,6 +108,7 @@ class ProjectController extends TipzStack {
     layoutTemplate("/WEB-INF/views/project.jade",
       "user" -> user,
       "errorMessage" -> "",
+      "projectId" -> id,
       "projectDescription" -> project.get("description"),
       "projectName" -> project.get("name"),
       "projectAuthor" -> project.get("author"),
@@ -226,6 +227,7 @@ class ProjectController extends TipzStack {
     layoutTemplate("/WEB-INF/views/editProject.jade",
       "user" -> user,
       "errorMessage" -> errorMessage,
+      "projectId" -> "",
       "projectDescription" -> description,
       "projectName" -> name,
       "projectAuthor" -> author,
@@ -352,6 +354,7 @@ class ProjectController extends TipzStack {
 
     layoutTemplate("/WEB-INF/views/project.jade",
       "user" -> user,
+      "projectId" -> projectId,
       "errorMessage" -> errorMessage,
       "projectDescription" -> description,
       "projectName" -> name,
