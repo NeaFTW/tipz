@@ -49,6 +49,7 @@ class ParticipateController extends TipzStack {
       "counterpartValue" -> counterpart.get("value").toString.toFloat,
       "counterpartName" -> counterpart.get("name").toString,
       "counterpartDescription" -> counterpart.get("description").toString,
+      "counterpartId" -> counterpart.get("id").toString.toFloat.toInt,
       "projectAuthor" -> project.get("author"),
       "projectName" -> project.get("name")
     )
@@ -117,6 +118,7 @@ class ParticipateController extends TipzStack {
       "counterpartValue" -> counterpart.get("value").toString.toFloat,
       "counterpartName" -> counterpart.get("name").toString,
       "counterpartDescription" -> counterpart.get("description").toString,
+      "counterpartId" -> counterpart.get("id").toString.toFloat.toInt,
       "projectAuthor" -> project.get("author"),
       "projectName" -> project.get("name")
     )
