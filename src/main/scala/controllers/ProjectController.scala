@@ -30,7 +30,8 @@ class ProjectController extends TipzStack {
       "projectDescription" -> "",
       "projectName" -> "",
       "projectAuthor" -> "",
-      "projectContact" -> ""
+      "projectContact" -> "",
+      "projectId" -> ""
     )
   }
 
@@ -67,6 +68,7 @@ class ProjectController extends TipzStack {
 
     layoutTemplate("/WEB-INF/views/counterpartList.jade",
       "user" -> user,
+      "projectId" -> res(0).get("id").toString.toFloat.toInt,
       "errorMessage" -> "",
       "counterpartDescription" -> "",
       "counterpartName" -> "",
@@ -151,7 +153,8 @@ class ProjectController extends TipzStack {
       "projectDescription" -> res(0).get("description"),
       "projectName" -> res(0).get("name"),
       "projectAuthor" -> res(0).get("author"),
-      "projectContact" -> res(0).get("contact")
+      "projectContact" -> res(0).get("contact"),
+      "projectId" -> res(0).get("id").toString.toFloat.toInt
     )
   }
 
