@@ -27,7 +27,7 @@
 
 .row
     -@ val url : String = "/project/add/" + projectId + "/"
-    form.col-md-6.portfolio-item(name="projectForm" action=url method="post")
+    form.col-md-6.portfolio-item(name="form" action=url method="post")
         label Nom du projet
         input.form-control(type="text" name="projectName" placeholder="Nom du Projet"  required="required" value="#{projectName}" min="1" autofocus="")
         |

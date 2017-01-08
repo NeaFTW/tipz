@@ -226,7 +226,6 @@ class ProjectController extends TipzStack {
 
     layoutTemplate("/WEB-INF/views/editProject.jade",
       "user" -> user,
-      "errorMessage" -> errorMessage,
       "projectId" -> 0,
       "projectDescription" -> description,
       "projectName" -> name,
