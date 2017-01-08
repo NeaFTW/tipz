@@ -31,7 +31,7 @@ class ProjectController extends TipzStack {
       "projectName" -> "",
       "projectAuthor" -> "",
       "projectContact" -> "",
-      "projectId" -> ""
+      "projectId" -> 0
     )
   }
 
@@ -227,7 +227,7 @@ class ProjectController extends TipzStack {
     layoutTemplate("/WEB-INF/views/editProject.jade",
       "user" -> user,
       "errorMessage" -> errorMessage,
-      "projectId" -> "",
+      "projectId" -> 0,
       "projectDescription" -> description,
       "projectName" -> name,
       "projectAuthor" -> author,
