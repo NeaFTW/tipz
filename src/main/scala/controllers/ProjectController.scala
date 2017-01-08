@@ -61,7 +61,9 @@ class ProjectController extends TipzStack {
     if (res(0).get("accountEmail") != user)
       redirect("/403")
 
-    val counterpartList : List[Imports.DBObject] = Nil
+    val counterpartModel = new Counterpart
+    val counterpartList : List[Imports.DBObject] = counterpartModel.findAllCounterpartsByProject(projectId)
+    counterpartModel.closeConnection()
 
     /* Rendering template */
     contentType="text/html"
