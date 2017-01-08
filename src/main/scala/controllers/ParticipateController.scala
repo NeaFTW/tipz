@@ -95,9 +95,9 @@ class ParticipateController extends TipzStack {
       val res = accountCounterpartModel.insertAccountCounterpart(user, id)
       accountCounterpartModel.closeConnection()
       if (res == true) {
-        projectModel.updateProjectCounterparts(projectId)
+        projectModel.updateProjectCounterparts(projectId.toString.toFloat.toInt)
         projectModel.updateProjectAmount(id, counterpart.get("value").toString.toFloat)
-        projectModel.updateProjectweight(projectId)
+        projectModel.updateProjectweight(projectId.toString.toFloat.toInt)
         projectModel.closeConnection()
         redirect("/")
       }
