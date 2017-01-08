@@ -110,6 +110,7 @@ class ProjectController extends TipzStack {
       "projectName" -> project.get("name"),
       "projectAuthor" -> project.get("author"),
       "projectContact" -> project.get("contact"),
+      "projectCreation" -> project.get("creationDate"),
       "counterpartList" -> counterpartList,
       "participateList" -> contributorList
     )
