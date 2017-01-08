@@ -8,8 +8,8 @@
         h1.page-header Accueil
 
 .row
-    - for(proj <- projectList)
-        -@ val url : "/project/" + #{proj.get("id")} + "/"
-        a(title=title href=url) Test
-        p #{proj.get("name")}
+    - for(proj <- projectList) {
+        -@ val url : String = "/project/" + proj.get("id").toString.toFloat.toInt + "/"
+        a(href=url) Test
+        p = proj.get("name")
     - }
