@@ -115,6 +115,7 @@ class ParticipateController extends TipzStack {
       "participateErrorMessage" -> participateErrorMessage,
       "counterpartValue" -> counterpart.get("value").toString.toFloat,
       "counterpartName" -> counterpart.get("name").toString,
+      "counterpartDescription" -> counterpart.get("description").toString,
       "projectAuthor" -> project.get("author"),
       "projectName" -> project.get("name")
     )
