@@ -26,16 +26,19 @@
 
 
 .row
-    -@ val url : String = "add/" + projectId + "/"
+    -@ val url : String = "/project/add"
     form.col-md-6.portfolio-item(name="form" action=url method="post")
         label Nom du projet
-        input.form-control(type="text" name="projectName" placeholder="Nom du Projet"  required="required" value="#{projectName}" min="1" autofocus="")
+        input.form-control(type="text" name="name" placeholder="Nom du Projet"  required="required" value="#{projectName}" min="1" autofocus="")
         |
         br
         |
         label Description
-        textarea.form-control(id="projectDescription" rows="8")
-        textarea.form-control(id="hiddenProjectDescription" name="projectDescription" required="required")
+        textarea.form-control(name="description" id="projectDescription" value="#{projectDescription}" rows="8")
+        label Autheur
+        input.form-control(type='text' name='author' placeholder='auteur' value="#{projectAuthor}" required='required')
+        label Contact
+        input.form-control(type='text' name='contact' placeholder='contact' value="#{projectContact}" required='required')
         |
         hr
         |

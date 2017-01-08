@@ -21,6 +21,10 @@ class ProjectController extends TipzStack {
     else
       redirect("/session/signin")
 
+    val accountModel = new Account
+    val account = accountModel.findByEmail(user)(0)
+    accountModel.closeConnection()
+
     /* Rendering template */
     contentType="text/html"
 
@@ -29,53 +33,9 @@ class ProjectController extends TipzStack {
       "errorMessage" -> "",
       "projectDescription" -> "",
       "projectName" -> "",
-      "projectAuthor" -> "",
-      "projectContact" -> "",
+      "projectAuthor" -> (account.get("firstname") + " " + account.get("lastname")),
+      "projectContact" -> user,
       "projectId" -> 0
-    )
-  }
-
-  /**
-    * url : project/add/id
-    * Returns the page to asscociate counterparts to a project
-    */
-  get("/add/:projectId/") {
-    /* Check if the user is connected */
-    var user = ""
-    if (session.getAttribute("email") != null)
-      user = session.getAttribute("email").toString
-    else
-      redirect("/session/signin")
-
-    /* Get the project associated to the id */
-    val projectId = Integer.parseInt(params("projectId"))
-    val projectModel = new Project
-    val res = projectModel.findProjectById(projectId)
-    projectModel.closeConnection()
-
-    /* Check if the project exists */
-    if (res.isEmpty)
-      redirect("/")
-
-    /* Check is the project is owned by the user */
-    if (res(0).get("accountEmail") != user)
-      redirect("/403")
-
-    val counterpartModel = new Counterpart
-    val counterpartList : List[Imports.DBObject] = counterpartModel.findAllCounterpartsByProject(projectId)
-    counterpartModel.closeConnection()
-
-    /* Rendering template */
-    contentType="text/html"
-
-    layoutTemplate("/WEB-INF/views/counterpartList.jade",
-      "user" -> user,
-      "projectId" -> res(0).get("id").toString.toFloat.toInt,
-      "errorMessage" -> "",
-      "counterpartDescription" -> "",
-      "counterpartName" -> "",
-      "counterpartValue" -> 0.0f,
-      "counterpartList" -> counterpartList
     )
   }
 
@@ -88,8 +48,15 @@ class ProjectController extends TipzStack {
     var user = ""
     if (session.getAttribute("email") != null)
       user = session.getAttribute("email").toString
-
-    val id = Integer.parseInt(params("projectId"))
+    val pattern = "[0-9]".r
+    val projectIdStr = params("projectId")
+    val testId = projectIdStr match {
+      case pattern(str) => str.toInt
+      case _ => 0 // or some other value, or an exception
+    }
+    if (testId == 0)
+      redirect("/")
+    val id = Integer.parseInt(projectIdStr)
 
     /* Get the project associated to the id */
     val projectModel = new Project
@@ -125,7 +92,7 @@ class ProjectController extends TipzStack {
     * url : /project/id/edit/
     * Page to edit an existing project
     */
-  get("/:projectId/edit/") {
+  get("/:projectId/edit") {
     /* Check if the user is connected */
     var user = ""
     if (session.getAttribute("email") != null)
@@ -133,8 +100,17 @@ class ProjectController extends TipzStack {
     else
       redirect("/session/signin")
 
+    val pattern = "[0-9]".r
+    val projectIdStr = params("projectId")
+    val testId = projectIdStr match {
+      case pattern(str) => str.toInt
+      case _ => 0 // or some other value, or an exception
+    }
+    if (testId == 0)
+      redirect("/")
+
     /* Get the project associated to the id*/
-    val id = Integer.parseInt(params("projectId"))
+    val id = Integer.parseInt(projectIdStr)
     val projectModel = new Project
     val res : List[Imports.DBObject] = projectModel.findProjectById(id)
     projectModel.closeConnection()
@@ -173,8 +149,17 @@ class ProjectController extends TipzStack {
     else
       redirect("/session/signin")
 
+    val pattern = "[0-9]".r
+    val projectIdStr = params("projectId")
+    val testId = projectIdStr match {
+      case pattern(str) => str.toInt
+      case _ => 0 // or some other value, or an exception
+    }
+    if (testId == 0)
+      redirect("/")
+
     /* Get the project associated to the project ID */
-    val id = Integer.parseInt(params("projectId"))
+    val id = Integer.parseInt(projectIdStr)
     val projectModel = new Project
     val res : List[Imports.DBObject] = projectModel.findProjectById(id)
     projectModel.closeConnection()
@@ -215,26 +200,50 @@ class ProjectController extends TipzStack {
     if (description.length < 140)
       errorMessage += "The description must have more than 140 caracters ! "
 
+    var res = 0
+
     /* Adding project into the database */
     if (errorMessage == "") {
+      println("entrered if")
       val projectModel = new Project
-      val res = projectModel.createProject(name, description, author, contact, user)
+      res = projectModel.createProject(name, description, author, contact, user)
       projectModel.closeConnection()
-      redirect("/project/add/" + res + "/")
+      println("added in database " + res)
     }
 
-    /* Rendering template */
-    contentType="text/html"
+    if (res != 0) {
+      /* Rendering template */
+      val counterpartModel = new Counterpart
+      val counterpartList : List[Imports.DBObject] = counterpartModel.findAllCounterpartsByProject(res)
+      counterpartModel.closeConnection()
 
-    layoutTemplate("/WEB-INF/views/editProject.jade",
-      "user" -> user,
-      "projectId" -> 0,
-      "projectDescription" -> description,
-      "projectName" -> name,
-      "projectAuthor" -> author,
-      "projectContact" -> contact
-    )
+      /* Rendering template */
+      contentType="text/html"
 
+      layoutTemplate("/WEB-INF/views/counterpartList.jade",
+        "user" -> user,
+        "projectId" -> res,
+        "errorMessage" -> "",
+        "counterpartDescription" -> "",
+        "counterpartName" -> "",
+        "counterpartValue" -> 0.0f,
+        "counterpartList" -> counterpartList
+      )
+    }
+    else {
+      /* Rendering template */
+      contentType="text/html"
+
+      layoutTemplate("/WEB-INF/views/editProject.jade",
+        "user" -> user,
+        "errorMessage" -> errorMessage,
+        "projectId" -> 0,
+        "projectDescription" -> description,
+        "projectName" -> name,
+        "projectAuthor" -> author,
+        "projectContact" -> contact
+      )
+    }
   }
 
   /**
@@ -250,8 +259,17 @@ class ProjectController extends TipzStack {
     else
       redirect("/session/signin")
 
+    val pattern = "[0-9]".r
+    val projectIdStr = params("projectId")
+    val testId = projectIdStr match {
+      case pattern(str) => str.toInt
+      case _ => 0 // or some other value, or an exception
+    }
+    if (testId == 0)
+      redirect("/")
+
     /* Getting data from post form */
-    val projectId : Int = Integer.parseInt(params("projectId"))
+    val projectId : Int = Integer.parseInt(projectIdStr)
     val counterpartName = params("counterpartName")
     val counterpartDescription = params("counterpartDescription")
     val counterpartValue : Float = params("counterpartValue").toFloat
@@ -315,8 +333,17 @@ class ProjectController extends TipzStack {
     else
       redirect("/session/signin")
 
+    val pattern = "[0-9]".r
+    val projectIdStr = params("projectId")
+    val testId = projectIdStr match {
+      case pattern(str) => str.toInt
+      case _ => 0 // or some other value, or an exception
+    }
+    if (testId == 0)
+      redirect("/")
+
     /* Getting parameters from post */
-    val projectId = Integer.parseInt(params("projectId"))
+    val projectId = Integer.parseInt(projectIdStr)
     val description = params("description")
     val name = params ("name")
     val author = params("author")
