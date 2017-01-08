@@ -56,10 +56,7 @@ class AccountCounterpart {
       "accountEmail" -> accountEmail,
       "counterpartId" -> counterpartId
     )
-    println("Id : " + counterpartId)
-    println("email : " + accountEmail)
     val res = mongoDB.find(query).toList
-    println(res)
     if (!res.isEmpty)
       true
     else

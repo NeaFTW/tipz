@@ -94,6 +94,7 @@ class ParticipateController extends TipzStack {
     if (isAlreadyBought == false) {
       val res = accountCounterpartModel.insertAccountCounterpart(user, id)
       accountCounterpartModel.closeConnection()
+
       if (res == true) {
         projectModel.updateProjectCounterparts(projectId.toString.toFloat.toInt)
         projectModel.updateProjectAmount(id, counterpart.get("value").toString.toFloat)

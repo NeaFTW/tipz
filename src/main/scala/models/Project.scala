@@ -137,7 +137,8 @@ class Project {
     */
   def updateProjectCounterparts (projectId : Int) = {
     /* get the current number of participation*/
-    val currentParticipate : Int = this.findProjectById(projectId)(0).get("participeNb").toString.toInt
+
+    val currentParticipate : Int = this.findProjectById(projectId)(0).get("participeNb").toString.toFloat.toInt
 
     /* Creating update query */
     val query = MongoDBObject("id" -> projectId)
@@ -146,7 +147,7 @@ class Project {
     mongoDB.update(query, update)
 
     /* Check if the update succeed or not */
-    if (this.findProjectById(projectId)(0).get("participeNb").toString.toInt == (currentParticipate + 1))
+    if (this.findProjectById(projectId)(0).get("participeNb").toString.toFloat.toInt == (currentParticipate + 1))
       true
     else
       false
@@ -163,7 +164,7 @@ class Project {
     val counterPartModel = new Counterpart
     val counterpart = counterPartModel.findById(counterpartId)(0)
     counterPartModel.closeConnection()
-    val projectId = counterpart.get("projectId").toString.toInt
+    val projectId = counterpart.get("projectId").toString.toFloat.toInt
 
     /* Gettint project current amount and counterpart price*/
     val currentAmount = this.findProjectById(projectId)(0).get("amount").toString.toFloat
@@ -189,14 +190,13 @@ class Project {
     */
   def updateProjectweight (projectId : Int) = {
     /* getting the projecId associated to the counterpart*/
-    val projectModel = new Project
-    val project = projectModel.findProjectById(projectId)(0)
+    val project = this.findProjectById(projectId)(0)
     val amount = project.get("amount").toString.toFloat
-    val nbParticipate = project.get("participateNb").toString.toInt
+    val nbParticipate = project.get("participeNb").toString.toFloat.toInt
 
     /* Creating update query */
     val query = MongoDBObject("id" -> projectId)
-    val update = $set("amount" -> (amount * nbParticipate))
+    val update = $set("weight" -> (amount * nbParticipate))
     /* update the database */
     mongoDB.update(query, update)
 
