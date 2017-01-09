@@ -14,7 +14,6 @@
         h1.page-header Editer un projet
 
 - if (errorMessage != "") {
-// /.row
 .row
     .col-md-3
     |
@@ -32,15 +31,14 @@
         input.form-control(type="text" name="name" placeholder="Nom du Projet"  required="required" value="#{projectName}" min="1" autofocus="")
         |
         br
-        |
         label Description
-        textarea.form-control(name="description" id="projectDescription" value="#{projectDescription}" rows="8")
-        label Autheur
-        input.form-control(type='text' name='author' placeholder='auteur' value="#{projectAuthor}" required='required')
+        textarea.form-control(id="hiddenProjectDescription" placeholder="Description" name="description" required="required" value="#{projectDescription}")
+        br
+        label Auteur
+        input.form-control(type="text" name="author" palceholder="Prenom nom" placeholder="Auteur" required="required" min="1" value="#{projectAuthor}")
+        br
         label Contact
-        input.form-control(type='text' name='contact' placeholder='contact' value="#{projectContact}" required='required')
-        |
-        hr
-        |
-        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Enregistrer")
+        input.form-control(type="email" name="contact" palceholder="email" placeholder="Contact" required="required" min="1" value="#{projectContact}")
+
+        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Créer le projet")
 |

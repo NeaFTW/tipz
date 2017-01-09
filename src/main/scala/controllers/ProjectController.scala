@@ -175,7 +175,7 @@ class ProjectController extends TipzStack {
   }
 
   /**
-    * post methof
+    * post method
     * url : /project/add
     * Creating the project into the database
     */
