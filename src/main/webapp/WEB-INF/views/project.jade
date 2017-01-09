@@ -27,7 +27,9 @@
         .itemDisplay
             label Description
             .projectDescriptionDisplay
-                p #{projectDescription}
+                - var desc = projectDescription
+                div
+                    != desc
         p Par : #{projectAuthor}
         p Contact : #{projectContact}
 
