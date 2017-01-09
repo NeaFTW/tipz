@@ -43,7 +43,8 @@
         input.form-control(type="text" name="name" placeholder="Nom du Projet"  required="required" value="#{projectName}" min="1" autofocus="")
         br
         label Description
-        textarea.form-control(id="hiddenProjectDescription" placeholder="Description" name="description" required="required" value="#{projectDescription}")
+        textarea.form-control(id="projectDescription" placeholder="Description" name="description" required="required" rows="8")
+        script CKEDITOR.replace('projectDescription'); CKEDITOR.instances.projectDescription.setData("#{projectDescription}");
         br
         label Auteur
         input.form-control(type="text" name="author" palceholder="Prenom nom" placeholder="Auteur" required="required" min="1" value="#{projectAuthor}")
@@ -62,7 +63,8 @@
         input.form-control(type="text" name="name" placeholder="Nom du Projet"  required="required" value="#{projectName}" min="1" autofocus="")
         br
         label Description
-        textarea.form-control(id="hiddenProjectDescription" placeholder="Description" name="description" required="required" value="#{projectDescription}")
+        textarea.form-control(id="projectDescription" placeholder="Description" name="description" required="required" rows="8")
+        script CKEDITOR.replace('projectDescription');
         br
         label Auteur
         input.form-control(type="text" name="author" palceholder="Prenom nom" placeholder="Auteur" required="required" min="1" value="#{projectAuthor}")
