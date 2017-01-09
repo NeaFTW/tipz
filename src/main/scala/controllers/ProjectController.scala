@@ -48,12 +48,12 @@ class ProjectController extends TipzStack {
     var user = ""
     if (session.getAttribute("email") != null)
       user = session.getAttribute("email").toString
-    val pattern = "[0-9]".r
+
     val projectIdStr = params("projectId")
-    val testId = projectIdStr match {
-      case pattern(str) => str.toInt
-      case _ => 0 // or some other value, or an exception
-    }
+    var testId = 0
+    if (projectIdStr matches """\d+""")
+      testId = projectIdStr.toInt
+
     if (testId == 0)
       redirect("/")
     val id = Integer.parseInt(projectIdStr)
@@ -100,12 +100,11 @@ class ProjectController extends TipzStack {
     else
       redirect("/session/signin")
 
-    val pattern = "[0-9]".r
     val projectIdStr = params("projectId")
-    val testId = projectIdStr match {
-      case pattern(str) => str.toInt
-      case _ => 0 // or some other value, or an exception
-    }
+    var testId = 0
+    if (projectIdStr matches """\d+""")
+      testId = projectIdStr.toInt
+
     if (testId == 0)
       redirect("/")
 
@@ -149,12 +148,11 @@ class ProjectController extends TipzStack {
     else
       redirect("/session/signin")
 
-    val pattern = "[0-9]".r
     val projectIdStr = params("projectId")
-    val testId = projectIdStr match {
-      case pattern(str) => str.toInt
-      case _ => 0 // or some other value, or an exception
-    }
+    var testId = 0
+    if (projectIdStr matches """\d+""")
+      testId = projectIdStr.toInt
+
     if (testId == 0)
       redirect("/")
 
@@ -259,12 +257,11 @@ class ProjectController extends TipzStack {
     else
       redirect("/session/signin")
 
-    val pattern = "[0-9]".r
     val projectIdStr = params("projectId")
-    val testId = projectIdStr match {
-      case pattern(str) => str.toInt
-      case _ => 0 // or some other value, or an exception
-    }
+    var testId = 0
+    if (projectIdStr matches """\d+""")
+      testId = projectIdStr.toInt
+
     if (testId == 0)
       redirect("/")
 
@@ -333,12 +330,11 @@ class ProjectController extends TipzStack {
     else
       redirect("/session/signin")
 
-    val pattern = "[0-9]".r
     val projectIdStr = params("projectId")
-    val testId = projectIdStr match {
-      case pattern(str) => str.toInt
-      case _ => 0 // or some other value, or an exception
-    }
+    var testId = 0
+    if (projectIdStr matches """\d+""")
+      testId = projectIdStr.toInt
+
     if (testId == 0)
       redirect("/")
 
