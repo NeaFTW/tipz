@@ -35,7 +35,8 @@ class ProjectController extends TipzStack {
       "projectName" -> "",
       "projectAuthor" -> (account.get("firstname") + " " + account.get("lastname")),
       "projectContact" -> user,
-      "projectId" -> 0
+      "projectId" -> 0,
+      "isEdit" -> 0
     )
   }
 
@@ -132,7 +133,8 @@ class ProjectController extends TipzStack {
       "projectName" -> res(0).get("name"),
       "projectAuthor" -> res(0).get("author"),
       "projectContact" -> res(0).get("contact"),
-      "projectId" -> res(0).get("id").toString.toFloat.toInt
+      "projectId" -> res(0).get("id").toString.toFloat.toInt,
+      "isEdit" -> 1
     )
   }
 
@@ -257,7 +259,8 @@ class ProjectController extends TipzStack {
         "projectDescription" -> description,
         "projectName" -> name,
         "projectAuthor" -> author,
-        "projectContact" -> contact
+        "projectContact" -> contact,
+        "isEdit" -> 0
       )
     }
   }
@@ -380,6 +383,8 @@ class ProjectController extends TipzStack {
     if (description.length < 140)
       errorMessage += "The description must have more than 140 caracters ! "
 
+    var check = false
+
     /* Insert updates into database */
     if (errorMessage == "") {
       val projectModel = new Project
@@ -388,21 +393,51 @@ class ProjectController extends TipzStack {
 
       /* if the update succeed, redirect to the project page */
       if (res == true)
-        redirect("project/" + projectId + "/")
+        check = true
+      else
+        errorMessage += "An error occured during project update ! "
     }
 
-    /* Rendering template if there is an error */
-    contentType="text/html"
+    if (check) {
+      val projectModel = new Project
+      val res : List[Imports.DBObject] = projectModel.findProjectById(projectId)
+      projectModel.closeConnection()
 
-    layoutTemplate("/WEB-INF/views/project.jade",
-      "user" -> user,
-      "projectId" -> projectId,
-      "errorMessage" -> errorMessage,
-      "projectDescription" -> description,
-      "projectName" -> name,
-      "projectAuthor" -> author,
-      "projectContact" -> contact
-    )
+      val counterpartModel = new Counterpart
+      val counterpartList = counterpartModel.findAllCounterpartsByProject(projectId)
+
+      val contributorList = counterpartModel.findAllUserParticipationToProject(projectId)
+      counterpartModel.closeConnection()
+
+      contentType="text/html"
+      layoutTemplate("/WEB-INF/views/project.jade",
+        "user" -> user,
+        "errorMessage" -> "",
+        "projectId" -> projectId,
+        "projectDescription" -> res(0).get("description"),
+        "projectName" -> res(0).get("name"),
+        "projectAuthor" -> res(0).get("author"),
+        "projectContact" -> res(0).get("contact"),
+        "projectCreation" -> res(0).get("creationDate"),
+        "counterpartList" -> counterpartList,
+        "participateList" -> contributorList
+      )
+    }
+    else {
+      /* Rendering template if there is an error */
+      contentType="text/html"
+
+      layoutTemplate("/WEB-INF/views/editProject.jade",
+        "user" -> user,
+        "projectId" -> projectId,
+        "errorMessage" -> errorMessage,
+        "projectDescription" -> description,
+        "projectName" -> name,
+        "projectAuthor" -> author,
+        "projectContact" -> contact,
+        "isEdit" -> 1
+      )
+    }
   }
 
   /**

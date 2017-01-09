@@ -14,6 +14,7 @@ class InsertAccount extends ScalatraSpec { def is =
 
   def insertAccount = {
     val accountModel = new Account
+
     accountModel.createUser("nea@yahoo.com", "123", "nea", "walker")
     val res = accountModel.findByEmail("nea@nea.fr")
     res.length mustNotEqual 0
