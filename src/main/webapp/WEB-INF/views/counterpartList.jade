@@ -8,6 +8,31 @@
 -@ val user : String
 -@ val projectId : Int
 
-p Counterpart name
-p Counterpart description
-p Counterpart value
+.row
+    -@ val url : String = "/project/add/" + projectId + "/counterpart/add"
+    .col-md-2
+    form.col-md-8.portfolio-item(name="form" action=url method="post")
+        label Titre
+        input.form-control(type="text" name="counterpartName" placeholder="Nom de la contrepartie" required="required" value="#{counterpartName}" min="1" autofocus="")
+        br
+        label Valeur (en € / mois)
+        input.form-control(type="number" name="counterpartValue" placeholder="Montant" required="required" value="#{counterpartValue}" min="1" autofocus="")
+        br
+        label Description
+        textarea.form-control(id="hiddenProjectDescription" name="counterpartDescription" required="required" value="#{counterpartDescription}")
+
+        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Ajouter la contrepartie")
+    .col-md-2
+|
+
+.row
+    .itemDisplay
+        - for(counterpart <- counterpartList) {
+        p #{counterpart.get("name")}
+        - }
+
+.row
+    .h4
+        -@ val validationUrl : String = "/project/add/" + projectId + "/counterpart/save"
+        a(href=validationUrl class="blackText")
+            button(class="btn btn-primary" type="button") Valider

@@ -171,7 +171,25 @@ class ProjectController extends TipzStack {
       redirect("/403")
 
     /* Redirect to the project page */
-    redirect("/project/" + id + "/")
+    val counterpartModel = new Counterpart
+    val counterpartList = counterpartModel.findAllCounterpartsByProject(id)
+
+    val contributorList = counterpartModel.findAllUserParticipationToProject(id)
+    counterpartModel.closeConnection()
+
+    contentType="text/html"
+    layoutTemplate("/WEB-INF/views/project.jade",
+      "user" -> user,
+      "errorMessage" -> "",
+      "projectId" -> id,
+      "projectDescription" -> res(0).get("description"),
+      "projectName" -> res(0).get("name"),
+      "projectAuthor" -> res(0).get("author"),
+      "projectContact" -> res(0).get("contact"),
+      "projectCreation" -> res(0).get("creationDate"),
+      "counterpartList" -> counterpartList,
+      "participateList" -> contributorList
+    )
   }
 
   /**
@@ -305,7 +323,7 @@ class ProjectController extends TipzStack {
 
     contentType="text/html"
 
-    layoutTemplate("/WEB-INF/views/project.jade",
+    layoutTemplate("/WEB-INF/views/counterpartList.jade",
       "user" -> user,
       "errorMessage" -> errorMessage,
       "counterpartDescription" -> "",
