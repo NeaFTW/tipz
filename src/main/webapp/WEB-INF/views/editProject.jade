@@ -8,10 +8,20 @@
 -@ val projectId : Int
 -@ val isEdit : Int
 
+- if (isEdit == 1) {
 // Page Header
 .row
     .col-lg-12
         h1.page-header Editer un projet
+- }
+
+- if (isEdit == 0) {
+// Page Header
+.row
+    .col-lg-12
+        h1.page-header Créer un projet
+- }
+
 
 - if (errorMessage != "") {
 .row
@@ -25,6 +35,26 @@
 
 
 .row
+    - if (isEdit == 1) {
+    -@ val url1 : String = "/project/" + projectId + "/save"
+    .col-md-2
+    form.col-md-8.portfolio-item(name="form" action=url1 method="post")
+        label Nom du projet
+        input.form-control(type="text" name="name" placeholder="Nom du Projet"  required="required" value="#{projectName}" min="1" autofocus="")
+        br
+        label Description
+        textarea.form-control(id="hiddenProjectDescription" placeholder="Description" name="description" required="required" value="#{projectDescription}")
+        br
+        label Auteur
+        input.form-control(type="text" name="author" palceholder="Prenom nom" placeholder="Auteur" required="required" min="1" value="#{projectAuthor}")
+        br
+        label Contact
+        input.form-control(type="email" name="contact" palceholder="email" placeholder="Contact" required="required" min="1" value="#{projectContact}")
+        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Valider les modifications")
+    - }
+
+.row
+    - if (isEdit == 0) {
     -@ val url : String = "/project/add"
     .col-md-2
     form.col-md-8.portfolio-item(name="form" action=url method="post")
@@ -39,6 +69,6 @@
         br
         label Contact
         input.form-control(type="email" name="contact" palceholder="email" placeholder="Contact" required="required" min="1" value="#{projectContact}")
-
         input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Créer le projet")
+    - }
 |
