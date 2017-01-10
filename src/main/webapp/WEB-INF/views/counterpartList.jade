@@ -16,7 +16,7 @@
         input.form-control(type="text" name="counterpartName" placeholder="Name of the counterpart" required="required" value="#{counterpartName}" min="1" autofocus="")
         br
         label Value (€ / month)
-        input.form-control(type="number" name="counterpartValue" placeholder="Amount" required="required" value="#{counterpartValue}" min="1" autofocus="")
+        input.form-control(type="number" name="counterpartValue" required="required" value="#{counterpartValue}" min="1" autofocus="")
         br
         label Description
         textarea.form-control(id="hiddenProjectDescription" name="counterpartDescription" required="required" value="#{counterpartDescription}")
@@ -29,19 +29,18 @@
     .col-md-2
     .col-md-8.portfolio-item
         label List of the counterparts
+        - for(counterpart <- counterpartList) {
         .itemDisplay
-            - for(counterpart <- counterpartList) {
             .h4.strong
                 p #{counterpart.get("name")} - #{counterpart.get("value")} € / month
             p #{counterpart.get("description")}
-            - }
+        - }
     .col-md-2
-
 
 .row
-    .col-md-3
     .col-md-2
+    .col-md-8
         -@ val validationUrl : String = "/project/add/" + projectId + "/counterpart/save"
         a(href=validationUrl class="blackText")
-            button(class="btn btn-primary" type="button") Validate
-    .col-md-3
+            button(class="btn btn-primary btn-block btn-lg" type="button") Validate
+    .col-md-2

@@ -35,16 +35,16 @@
 
     .col-md-6.portfolio-item
         h4.strong List of counterparts :
+        - for(counterpart <- counterpartList) {
         .itemDisplay
-            - for(counterpart <- counterpartList) {
-                -@ val url : String = "/participate/" + counterpart.get("id").toString.toFloat.toInt
-                .h4.strong
-                    p #{counterpart.get("name")} - #{counterpart.get("value")} € / month
-                p #{counterpart.get("description")}
-                .rightText
-                    a(href=url class="blackText rightText")
-                        button(class="btn btn-primary" type="button") Select
-            - }
+            -@ val url : String = "/participate/" + counterpart.get("id").toString.toFloat.toInt
+            .h4.strong
+                p #{counterpart.get("name")} - #{counterpart.get("value")} € / month
+            p #{counterpart.get("description")}
+            .rightText
+                a(href=url class="blackText rightText")
+                    button(class="btn btn-primary" type="button") Select
+        - }
 
 - if (projectContact == user) {
 .row
