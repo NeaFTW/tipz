@@ -51,7 +51,8 @@ class MyScalatraServlet extends TipzStack {
 
     layoutTemplate("/WEB-INF/views/index.jade",
       "user" -> user,
-      "projectList" -> projectList
+      "projectList" -> projectList,
+      "isBest" -> 1
     )
   }
 
@@ -77,8 +78,7 @@ class MyScalatraServlet extends TipzStack {
 
     layoutTemplate("/WEB-INF/views/myProjects.jade",
       "user" -> user,
-      "projectList" -> projectList,
-      "isBest" -> 1
+      "projectList" -> projectList
     )
   }
 
