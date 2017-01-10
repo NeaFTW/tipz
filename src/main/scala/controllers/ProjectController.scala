@@ -222,11 +222,9 @@ class ProjectController extends TipzStack {
 
     /* Adding project into the database */
     if (errorMessage == "") {
-      println("entrered if")
       val projectModel = new Project
       res = projectModel.createProject(name, description, author, contact, user)
       projectModel.closeConnection()
-      println("added in database " + res)
     }
 
     if (res != 0) {

@@ -37,7 +37,8 @@ class Counterpart {
     */
   def findAllCounterpartsByProject(projectId : Int) = {
     val query = MongoDBObject("projectId" -> projectId)
-    val res = mongoDB.find(query).toList
+    val order = MongoDBObject("value" -> 1)
+    val res = mongoDB.find(query).sort(order).toList
     res
   }
 

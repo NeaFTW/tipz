@@ -37,7 +37,7 @@ class Project {
     * @return List of projects ordered by date
     */
   def findAllIndexProjects () = {
-    val query = MongoDBObject("creationDate" -> 1)
+    val query = MongoDBObject("creationDate" -> -1)
     val res = mongoDB.find().sort(query).toList
     res
   }
