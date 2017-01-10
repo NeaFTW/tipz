@@ -5,15 +5,15 @@
 // Page Header
 .row
     .col-lg-12
-        h1.page-header Liste de mes projets
+        h1.page-header List of my projects
 
 .row
     table.table.table-striped.col-lg-12
         thead
             tr
-                th Projet
-                th Date de création
-                th Montant cumulé
+                th Project
+                th Creation date
+                th Cumulative amount
         tbody
             - for(proj <- projectList) {
                 tr
@@ -23,5 +23,5 @@
                     td
                         p #{proj.get("creationDate")}
                     td
-                        p #{proj.get("amount")} € / mois
+                        p #{proj.get("amount")} € / month
             - }

@@ -12,14 +12,14 @@
 // Page Header
 .row
     .col-lg-12
-        h1.page-header Editer un projet
+        h1.page-header Edit a project
 - }
 
 - if (isEdit == 0) {
 // Page Header
 .row
     .col-lg-12
-        h1.page-header Créer un projet
+        h1.page-header Create a project
 - }
 
 
@@ -39,19 +39,19 @@
     -@ val url1 : String = "/project/" + projectId + "/save"
     .col-md-2
     form.col-md-8.portfolio-item(name="form" action=url1 method="post")
-        label Nom du projet
-        input.form-control(type="text" name="name" placeholder="Nom du Projet"  required="required" value="#{projectName}" min="1" autofocus="")
+        label Name of the project
+        input.form-control(type="text" name="name" placeholder="Name of the project"  required="required" value="#{projectName}" min="1" autofocus="")
         br
         label Description
         textarea.form-control(id="projectDescription" placeholder="Description" name="description" required="required" rows="8")
         script CKEDITOR.replace('projectDescription'); CKEDITOR.instances.projectDescription.setData("#{projectDescription}");
         br
         label Auteur
-        input.form-control(type="text" name="author" palceholder="Prenom nom" placeholder="Auteur" required="required" min="1" value="#{projectAuthor}")
+        input.form-control(type="text" name="author" palceholder="Name Surname" required="required" min="1" value="#{projectAuthor}")
         br
         label Contact
-        input.form-control(type="email" name="contact" palceholder="email" placeholder="Contact" required="required" min="1" value="#{projectContact}")
-        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Valider les modifications")
+        input.form-control(type="email" name="contact" placeholder="Contact" required="required" min="1" value="#{projectContact}")
+        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Valide changes")
     - }
 
 .row
@@ -60,17 +60,17 @@
     .col-md-2
     form.col-md-8.portfolio-item(name="form" action=url method="post")
         label Nom du projet
-        input.form-control(type="text" name="name" placeholder="Nom du Projet"  required="required" value="#{projectName}" min="1" autofocus="")
+        input.form-control(type="text" name="name" placeholder="Name of the project"  required="required" value="#{projectName}" min="1" autofocus="")
         br
         label Description
         textarea.form-control(id="projectDescription" placeholder="Description" name="description" required="required" rows="8")
         script CKEDITOR.replace('projectDescription');
         br
         label Auteur
-        input.form-control(type="text" name="author" palceholder="Prenom nom" placeholder="Auteur" required="required" min="1" value="#{projectAuthor}")
+        input.form-control(type="text" name="author" palceholder="Name Surname" required="required" min="1" value="#{projectAuthor}")
         br
         label Contact
-        input.form-control(type="email" name="contact" palceholder="email" placeholder="Contact" required="required" min="1" value="#{projectContact}")
-        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Créer le projet")
+        input.form-control(type="email" name="contact" placeholder="Contact" required="required" min="1" value="#{projectContact}")
+        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Create the project")
     - }
 |

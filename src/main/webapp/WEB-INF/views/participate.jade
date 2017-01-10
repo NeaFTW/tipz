@@ -10,7 +10,7 @@
 / Page Header
 .row
     .col-lg-12
-        h1.page-header Participer à un projet
+        h1.page-header Participate in a project
 
 - if (participateErrorMessage != "") {
 // /.row
@@ -23,12 +23,12 @@
 // Projects Row
 - }
 
-.col-lg-12.portfolio-item.itemDisplay Vous confirmez votre participation à hauteur de #{counterpartValue} € par mois pour le projet #{projectName} de #{projectAuthor} ?
+.col-lg-12.portfolio-item.itemDisplay Do you confirm your participation of #{counterpartValue} € per month to the #{projectName} project from #{projectAuthor} ?
 
 .col-md-4.itemDisplay
-    h4.strong #{counterpartName} - #{counterpartValue} € / mois
+    h4.strong #{counterpartName} - #{counterpartValue} € / month
     p #{counterpartDescription}
     -@ val url : String = "/participate/" + counterpartId + "/submit"
     .rightText
         a(href=url class="blackText rightText")
-            button(class="btn btn-primary" type="button") J'accepte
+            button(class="btn btn-primary" type="button") I'm agree

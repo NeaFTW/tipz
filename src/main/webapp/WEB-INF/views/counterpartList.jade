@@ -12,34 +12,36 @@
     -@ val url : String = "/project/add/" + projectId + "/counterpart/add"
     .col-md-2
     form.col-md-8.portfolio-item(name="form" action=url method="post")
-        label Titre
-        input.form-control(type="text" name="counterpartName" placeholder="Nom de la contrepartie" required="required" value="#{counterpartName}" min="1" autofocus="")
+        label Title
+        input.form-control(type="text" name="counterpartName" placeholder="Name of the counterpart" required="required" value="#{counterpartName}" min="1" autofocus="")
         br
-        label Valeur (en € / mois)
-        input.form-control(type="number" name="counterpartValue" placeholder="Montant" required="required" value="#{counterpartValue}" min="1" autofocus="")
+        label Value (€ / month)
+        input.form-control(type="number" name="counterpartValue" placeholder="Amount" required="required" value="#{counterpartValue}" min="1" autofocus="")
         br
         label Description
         textarea.form-control(id="hiddenProjectDescription" name="counterpartDescription" required="required" value="#{counterpartDescription}")
 
-        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Ajouter la contrepartie")
+        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Add the counterpart")
     .col-md-2
 |
 
 .row
     .col-md-2
     .col-md-8.portfolio-item
-        label Liste des contreparties
+        label List of the counterparts
         .itemDisplay
             - for(counterpart <- counterpartList) {
             .h4.strong
-                p #{counterpart.get("name")} - #{counterpart.get("value")} € / mois
+                p #{counterpart.get("name")} - #{counterpart.get("value")} € / month
             p #{counterpart.get("description")}
             - }
     .col-md-2
 
 
 .row
-    .col-md-1.h4
+    .col-md-3
+    .col-md-2
         -@ val validationUrl : String = "/project/add/" + projectId + "/counterpart/save"
         a(href=validationUrl class="blackText")
-            button(class="btn btn-primary" type="button") Valider
+            button(class="btn btn-primary" type="button") Validate
+    .col-md-3

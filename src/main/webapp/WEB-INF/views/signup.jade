@@ -1,4 +1,4 @@
-- attributes("title") = "Tipz - S'enregistrer"
+- attributes("title") = "Tipz - Sign up"
 -@ val errorMessage : String
 -@ val email : String
 -@ val lastname : String
@@ -7,7 +7,7 @@
 // Page Header
 .row
     .col-lg-12
-        h1.page-header S'enregistrer
+        h1.page-header Sign up
 
 - if (errorMessage != "") {
 // /.row
@@ -30,13 +30,13 @@
         |
         br
         |
-        label Nom
-        input.form-control(type="text" name="lastname" placeholder="Nom" required="required" value="#{lastname}" min="1" autofocus="")
+        label Surname
+        input.form-control(type="text" name="lastname" placeholder="Surname" required="required" value="#{lastname}" min="1" autofocus="")
         |
         br
         |
-        label Prénom
-        input.form-control(type="text" name="firstname" placeholder="Prénom" required="required" value="#{firstname}" min="1" autofocus="")
+        label Name
+        input.form-control(type="text" name="firstname" placeholder="Name" required="required" value="#{firstname}" min="1" autofocus="")
         |
         br
         |
@@ -45,7 +45,7 @@
         |
         hr
         |
-        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="S'enregister")
+        input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Sign up")
     |
     .col-md-3
 |

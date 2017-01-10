@@ -13,13 +13,13 @@
 // Page Header
 .row
     .col-lg-12
-        h1.page-header #{projectName} - Créé le #{projectCreation}
+        h1.page-header #{projectName} - Created the #{projectCreation}
 
 - if (projectContact == user) {
 .row.rightText
     -@ val url : String = "/project/" + projectId + "/edit"
     a(href=url class="blackText rightText")
-        button(class="btn btn-primary" type="button") Editer le projet
+        button(class="btn btn-primary" type="button") Edit a project
 - }
 
 .row
@@ -30,38 +30,38 @@
                 - var desc = projectDescription
                 div
                     != desc
-        p Par : #{projectAuthor}
+        p By : #{projectAuthor}
         p Contact : #{projectContact}
 
     .col-md-6.portfolio-item
-        h4.strong Liste des contreparties :
+        h4.strong List of counterparts :
         .itemDisplay
             - for(counterpart <- counterpartList) {
                 -@ val url : String = "/participate/" + counterpart.get("id").toString.toFloat.toInt
                 .h4.strong
-                    p #{counterpart.get("name")} - #{counterpart.get("value")} € / mois
+                    p #{counterpart.get("name")} - #{counterpart.get("value")} € / month
                 p #{counterpart.get("description")}
                 .rightText
                     a(href=url class="blackText rightText")
-                        button(class="btn btn-primary" type="button") Sélectionner
+                        button(class="btn btn-primary" type="button") Select
             - }
 
 - if (projectContact == user) {
 .row
     .col-lg-12
-        h2.page-header Liste des contributeurs
+        h2.page-header List of contributors
 
     table.table.table-striped.col-lg-12
         thead
             tr
             th Email
-            th Montant
+            th Amount
         tbody
             - for(participate <- participateList) {
             tr
                 td
                     p #{participate.get("email")}
                 td
-                    p #{participate.get("value")} € / mois
+                    p #{participate.get("value")} € / month
             - }
 - }

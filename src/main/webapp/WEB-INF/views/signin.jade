@@ -1,11 +1,11 @@
-- attributes("title") = "Tipz - Se connecter"
+- attributes("title") = "Tipz - Log in"
 -@ val errorMessage : String
 -@ val email : String
 
 // Page Header
 .row
     .col-lg-12
-        h1.page-header Se connecter
+        h1.page-header Log in
 
 - if (errorMessage != "") {
 // /.row
@@ -24,7 +24,7 @@
         label Email
         input.form-control(type='email' name='email' placeholder='email' value="#{email}" required='required' autofocus='')
         br
-        label Mot de passe
+        label Password
         input.form-control(type='password' name='password' placeholder='password' required='required')
         hr
         input.btn.btn-lg.btn-primary.btn-block(type="submit" value="Connexion")
