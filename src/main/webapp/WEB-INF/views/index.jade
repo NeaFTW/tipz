@@ -3,10 +3,19 @@
 -@ val projectList : List[Imports.DBObject]
 -@ val isBest : Int
 
+- if (isBest == 1) {
 // Page Header
 .row
     .col-lg-12
-        h1.page-header Home
+        h1.page-header Best projects
+- }
+
+- if (isBest == 0) {
+// Page Header
+.row
+    .col-lg-12
+        h1.page-header Edit a project
+- }
 
 .row
     - for(proj <- projectList) {
