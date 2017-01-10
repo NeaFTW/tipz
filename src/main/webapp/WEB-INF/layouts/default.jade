@@ -35,29 +35,29 @@ html(lang='en')
             |
             span.icon-bar
           |
-          a.navbar-brand(href="/") Tipz - Accueil
+          a.navbar-brand(href="/") Tipz - Home
         // Collect the nav links, forms, and other content for toggling
         #bs-example-navbar-collapse-1.collapse.navbar-collapse
           ul.nav.navbar-nav
             li
-              a(href="/project/add") Créer un projet
+              a(href="/project/add") Create a project
             |
             li
-              a(href="/best") Les meilleurs projets
+              a(href="/best") Best projects
           |
           ul.nav.navbar-nav.navbar-right
             li
               - if (user.length() == 0) {
-                a(href="/session/signup") S'enregister
+                a(href="/session/signup") Sign up
               - } else {
                 a(href="/myProjects")  #{user}
               - }
             |
             li
               - if (user.length() == 0) {
-                a(href="/session/signin") Se connecter
+                a(href="/session/signin") Sign in
               - } else {
-                a(href="/session/logout") Se déconnecter
+                a(href="/session/logout") Log out
               - }
             |
           |
