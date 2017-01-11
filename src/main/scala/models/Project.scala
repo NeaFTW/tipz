@@ -56,17 +56,6 @@ class Project {
   }
 
   /**
-    * Get all project associated owned by the user
-    * @param email
-    * @return list of the user projects
-    */
-  def findAllAccountProject (email : String) = {
-    val query = MongoDBObject("accountEmail" -> email)
-    val res = mongoDB.find(query).toList
-    res
-  }
-
-  /**
     * Create projects and insert data into the database
     * @param name
     * @param description
