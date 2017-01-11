@@ -1,7 +1,7 @@
 package com.tipz.app
 
 import com.mongodb.casbah.Imports
-import models.{AccountCounterpart, Project}
+import models.{AccountCounterpart, Counterpart, Project}
 import org.scalatra._
 
 class MyScalatraServlet extends TipzStack {
@@ -71,11 +71,14 @@ class MyScalatraServlet extends TipzStack {
     /* Getting the project list of the project that the user have participated */
     val accountCounterpartModel = new AccountCounterpart
     val myCounterpartParticipation = accountCounterpartModel.findAllCounterpartBoughtByAccount(user)
+    accountCounterpartModel.closeConnection()
     val projectModel = new Project
     var projectArray : List[Imports.DBObject] = List()
     for (counterpart <- myCounterpartParticipation) {
-      val id = counterpart.get("counterpartId").toString.toFloat.toInt
-      val project: Imports.DBObject = projectModel.findProjectById(id)(0)
+      val counterpartId = counterpart.get("counterpartId").toString.toFloat.toInt
+      val counterpartModel = new Counterpart
+      val projectId = counterpartModel.findById(counterpartId)(0).get("projectId").toString.toFloat.toInt
+      val project: Imports.DBObject = projectModel.findProjectById(projectId)(0)
       projectArray :+= project
     }
     projectModel.closeConnection()
