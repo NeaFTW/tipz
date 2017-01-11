@@ -40,7 +40,7 @@ class Project {
     * @return List of projects ordered by date
     */
   def findAllIndexProjects () = {
-    val query = MongoDBObject("creationDate" -> -1)
+    val query = MongoDBObject("creationDate" -> -1, "name" -> 1)
     val res = mongoDB.find().sort(query).toList
     res
   }
@@ -71,7 +71,7 @@ class Project {
                      accountEmail : String) = {
     /* Getting the initial number of element into the collection*/
     val initNb = mongoDB.count()
-    val dateFormatter = new SimpleDateFormat("dd/MM/yyyy")
+    val dateFormatter = new SimpleDateFormat("yyyy/MM/dd")
     val submittedDateConvert = new Date()
     val date = dateFormatter.format(submittedDateConvert)
 
