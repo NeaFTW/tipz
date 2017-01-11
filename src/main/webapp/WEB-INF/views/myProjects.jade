@@ -5,7 +5,7 @@
 // Page Header
 .row
     .col-lg-12
-        h1.page-header List of my projects
+        h1.page-header List of the projects in which I participated
 
 .row
     table.table.table-striped.col-lg-12
@@ -17,7 +17,7 @@
         tbody
             - for(proj <- projectList) {
                 tr
-                    -@ val url : String = "/project/" + proj.get("id").toString.toFloat.toInt + "/edit"
+                    -@ val url : String = "/project/" + proj.get("id").toString.toFloat.toInt + "/"
                     td
                         a(href=url) #{proj.get("name")}
                     td

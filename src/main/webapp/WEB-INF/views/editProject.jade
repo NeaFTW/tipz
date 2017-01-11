@@ -22,7 +22,6 @@
         h1.page-header Create a project
 - }
 
-
 - if (errorMessage != "") {
 .row
     .col-md-3
@@ -43,7 +42,7 @@
         input.form-control(type="text" name="name" placeholder="Name of the project"  required="required" value="#{projectName}" min="1" autofocus="")
         br
         label Description
-        textarea.form-control(id="projectDescription" placeholder="Description" name="description" required="required" rows="8")
+        textarea.form-control(id="projectDescription" placeholder="Description" name="description" required="required" rows="8") #{projectDescription}
         script CKEDITOR.replace('projectDescription'); CKEDITOR.instances.projectDescription.setData("#{projectDescription}");
         br
         label Author
