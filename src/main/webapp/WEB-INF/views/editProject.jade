@@ -43,7 +43,7 @@
         br
         label Description
         textarea.form-control(id="projectDescription" placeholder="Description" name="description" required="required" rows="8") #{projectDescription}
-        script CKEDITOR.replace('projectDescription'); CKEDITOR.instances.projectDescription.setData("#{projectDescription}");
+        script var editor = CKEDITOR.replace('projectDescription'); editor.on('instanceReady', function (e) {this.document.on("keyup", function () {scope.$apply(function () {scope.project.description = (editor.getData());});});});
         br
         label Author
         input.form-control(type="text" name="author" palceholder="Name Surname" required="required" min="1" value="#{projectAuthor}")
