@@ -22,11 +22,17 @@ class ParticipateController extends TipzStack {
     else
       redirect("/session/signin")
 
-    val id : Int = Integer.parseInt(params("counterpartId"))
+    val projectIdStr = params("counterpartId")
+    var testId = 0
+    if (projectIdStr matches """\d+""")
+      testId = projectIdStr.toInt
+
+    if (testId == 0)
+      redirect("/")
 
     /* Get the counterpart by its id */
     val counterpartModel = new Counterpart
-    val counterpartList = counterpartModel.findById(id)
+    val counterpartList = counterpartModel.findById(testId)
     counterpartModel.closeConnection()
 
     /* redirect to home is the counterpart doesn't exist */
@@ -37,7 +43,7 @@ class ParticipateController extends TipzStack {
 
     /* Get author information from project */
     val projectModel = new Project
-    val counterpartId : Int = counterpart.get("id").toString.toFloat.toInt
+    val counterpartId : Int = counterpart.get("projectId").toString.toFloat.toInt
     val project = projectModel.findProjectById(counterpartId)(0)
 
     /* Rendering template */

@@ -1,5 +1,8 @@
 package models
 
+import java.text.SimpleDateFormat
+import java.util.Date
+
 import utils.DateGetter
 import com.mongodb.casbah.{Imports, MongoClient, MongoConnection}
 import com.mongodb.casbah.commons.MongoDBObject
@@ -68,8 +71,9 @@ class Project {
                      accountEmail : String) = {
     /* Getting the initial number of element into the collection*/
     val initNb = mongoDB.count()
-    val dateGetter = new DateGetter()
-    val date = dateGetter.currentDate()
+    val dateFormatter = new SimpleDateFormat("dd/MM/yyyy")
+    val submittedDateConvert = new Date()
+    val date = dateFormatter.format(submittedDateConvert)
 
     /* Creating the mongoObject of the project with the id equal to the number of element */
     val builder = MongoDBObject.newBuilder
