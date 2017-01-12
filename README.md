@@ -1,6 +1,8 @@
 # Tipz #
 
-#Travis [![Build Status](https://travis-ci.com/NeaFTW/tipz.svg?token=rmCpxryC3znpRh9uHNKP&branch=master)](https://travis-ci.com/NeaFTW/tipz)
+#Travis public [![Build Status](https://travis-ci.org/NeaFTW/tipz.svg?branch=master)](https://travis-ci.org/NeaFTW/tipz)
+
+#Travis Private [![Build Status](https://travis-ci.com/NeaFTW/tipz.svg?token=rmCpxryC3znpRh9uHNKP&branch=master)](https://travis-ci.com/NeaFTW/tipz)
 
 ## How to install the prerequisites ##
 
