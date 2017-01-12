@@ -8,6 +8,16 @@
 -@ val user : String
 -@ val projectId : Int
 
+- if (errorMessage != "") {
+.row
+    .col-md-3
+    |
+    .alert.alert-danger.col-md-6.errorMessage  #{errorMessage}
+    |
+    .col-md-3
+// Projects Row
+- }
+
 .row
     -@ val url : String = "/project/add/" + projectId + "/counterpart/add"
     .col-md-2

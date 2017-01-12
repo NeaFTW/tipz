@@ -150,6 +150,8 @@ class ProjectController extends TipzStack {
     else
       redirect("/session/signin")
 
+    var errorMessage = ""
+
     val projectIdStr = params("projectId")
     var testId = 0
     if (projectIdStr matches """\d+""")
@@ -176,22 +178,39 @@ class ProjectController extends TipzStack {
     val counterpartModel = new Counterpart
     val counterpartList = counterpartModel.findAllCounterpartsByProject(id)
 
+    if (counterpartList.isEmpty)
+      errorMessage += "The project must contain one counterpart to be valid ! "
+
     val contributorList = counterpartModel.findAllUserParticipationToProject(id)
     counterpartModel.closeConnection()
 
-    contentType="text/html"
-    layoutTemplate("/WEB-INF/views/project.jade",
-      "user" -> user,
-      "errorMessage" -> "",
-      "projectId" -> id,
-      "projectDescription" -> res(0).get("description"),
-      "projectName" -> res(0).get("name"),
-      "projectAuthor" -> res(0).get("author"),
-      "projectContact" -> res(0).get("contact"),
-      "projectCreation" -> res(0).get("creationDate"),
-      "counterpartList" -> counterpartList,
-      "participateList" -> contributorList
-    )
+    if (errorMessage != "") {
+      contentType="text/html"
+      layoutTemplate("/WEB-INF/views/counterpartList.jade",
+        "user" -> user,
+        "projectId" -> id,
+        "errorMessage" -> errorMessage,
+        "counterpartDescription" -> "",
+        "counterpartName" -> "",
+        "counterpartValue" -> 0.0f,
+        "counterpartList" -> counterpartList
+      )
+    }
+    else {
+      contentType="text/html"
+      layoutTemplate("/WEB-INF/views/project.jade",
+        "user" -> user,
+        "errorMessage" -> "",
+        "projectId" -> id,
+        "projectDescription" -> res(0).get("description"),
+        "projectName" -> res(0).get("name"),
+        "projectAuthor" -> res(0).get("author"),
+        "projectContact" -> res(0).get("contact"),
+        "projectCreation" -> res(0).get("creationDate"),
+        "counterpartList" -> counterpartList,
+        "participateList" -> contributorList
+      )
+    }
   }
 
   /**
