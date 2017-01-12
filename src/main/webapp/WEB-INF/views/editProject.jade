@@ -62,8 +62,8 @@
         input.form-control(type="text" name="name" placeholder="Name of the project"  required="required" value="#{projectName}" min="1" autofocus="")
         br
         label Description
-        textarea.form-control(id="projectDescription" placeholder="Description" name="description" required="required" rows="8")
-        script CKEDITOR.replace('projectDescription');
+        textarea.form-control(id="projectDescription" placeholder="Description" name="description" required="required" rows="8") #{projectDescription}
+        script var editor = CKEDITOR.replace('projectDescription'); editor.on('instanceReady', function (e) {this.document.on("keyup", function () {scope.$apply(function () {scope.project.description = (editor.getData());});});});
         br
         label Author
         input.form-control(type="text" name="author" palceholder="Name Surname" required="required" min="1" value="#{projectAuthor}")
